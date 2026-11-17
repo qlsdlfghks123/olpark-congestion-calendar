@@ -8,6 +8,7 @@ import pandas as pd
 from olpark.analog import fit_analog
 from olpark.backtest import run_backtest_loo, weather_effect
 from olpark.baseline import fit_baseline, level_thresholds
+from olpark.calendar_kr import holidays_between
 from olpark.export import (current_timetable, project_timetable, write_agency_csv, write_ics, write_json)
 from olpark.forecast import forecast, to_blocks
 from olpark.load import CLEAN_MONTHS, expand_sessions, load_courses, load_linked, load_schedule
@@ -57,6 +58,7 @@ def main(argv=None):
     blocks = to_blocks(forecast(s, start, end, table, analog, th), th)
     write_json(out / "forecast.json", {"generated_at": pd.Timestamp.now(tz="Asia/Seoul").isoformat(timespec="minutes"),
                                        "period": {"start": str(start), "end": str(end)}, "thresholds": th,
+                                       "holidays": holidays_between(start, end),
                                        "schedule": s.to_dict("records"), "blocks": blocks.to_dict("records")})
 
     tt = current_timetable(courses)

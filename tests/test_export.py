@@ -65,6 +65,7 @@ def test_build_writes_all_files(tmp_path):
                      "evidence_2025.json", "sources.json", "ics"}
     fc = json.loads((tmp_path / "forecast.json").read_text(encoding="utf-8"))
     assert fc["period"] == {"start": "2026-12-20", "end": "2027-01-31"} and len(fc["blocks"]) == 2 * 43
+    assert [h["date"] for h in fc["holidays"]] == ["2026-12-25", "2027-01-01"]
 
 
 def test_write_json_turns_nan_into_null(tmp_path):
