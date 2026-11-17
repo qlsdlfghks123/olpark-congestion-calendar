@@ -339,3 +339,20 @@ def test_build_writes_all_files(tmp_path):
 ## 이후 단계 (이 계획 범위 밖)
 
 시제품 주소와 `metrics.json`, `evidence_2025.json`이 나오면 기획서(공고 양식, DOCX)를 쓰고, 작업을 보지 않은 검토자가 근거 없는 주장과 AI 문체를 확인한 뒤 12월 1일 18시 전에 제출한다.
+
+---
+
+## Revision 1 (2026-11-17, 사용자 승인): 예보 방식과 출력 단위 변경
+
+Task 5 검증에서 '기준선 + 증가분' 방식이 공연일에 기준선보다 나빠 중단 조건에 걸렸다. 8개월 교차 검증 결과에 따라 아래로 바꾼다. Task 1~4 산출물은 그대로 쓰되 `olpark/uplift.py`는 삭제한다(`events.py`는 유지).
+
+- **예보 방식:** '과거 비슷한 공연일 참고'. `olpark/analog.py`
+  - `fit_analog(df, months) -> DataFrame[size, wk, offset, park, n]`: 학습 월의 공연이 하나뿐인 날에서 (규모, `wk`=`"wd"|"we"`, offset −4…+3)별 실제 주차대수 중앙값. `wk`는 `day_type`이 weekday면 `"wd"`, 아니면 `"we"`.
+  - `analog_for(profile, size, wk, offset) -> float | None`: `n >= 3`인 칸만 사용, 없으면 같은 `wk`에서 작은 규모로 대체(L→M→S), 그래도 없으면 None.
+- **forecast.py:** `forecast(schedule, start, end, table, analog, th)` 시간별 결과 컬럼 `dt, base, pred, titles, assumed_start, baseline_month_fallback`. `pred = base + Σ max(0, analog_i − base)`(같은 시각 여러 공연은 초과분을 합산).
+  - `to_blocks(hourly, th) -> DataFrame[date, block, pred_max, base_max, level, show_congestion, titles, assumed_start, baseline_month_fallback]`. 구간은 `오후`=12~16시, `저녁`=17~22시. `level = level_of(pred_max)`, `show_congestion = is_show_congestion(level, pred_max − base_max, base_max) and titles`.
+- **기준선 대체 월 동점 처리:** 거리가 같으면 대상 월보다 앞선 달을 쓴다(예: 10월 시험 시 1월·7월 동점 → 7월).
+- **backtest.py:** `run_backtest_loo(df) -> dict` 정상 8개월을 한 달씩 시험 달로 빼는 교차 검증. 구간별(`오후`, `저녁`) × 방식별(`analog`, `baseline`)로 `n_days, acc, recall, precision, show_days_n, show_days_acc, show_days_recall, mae`. 분류 기준은 구간 최고값이 '붐빔' 이상인가. 별도로 `show_congestion` 판정의 `hit_rate, false_alarm_rate, n_actual, n_pred`. `weather_effect`는 유지.
+- **Task 6:** 강좌 세션이 `show_congestion` 구간과 시간이 겹치면 겹침. `evidence_2025`는 정상 기간 실측값으로 같은 `to_blocks` 규칙을 적용해 계산.
+- **Task 7:** `forecast.json`은 시간별 대신 `blocks` 배열(`date, block, level, pred_max, base_max, show_congestion, titles, assumed_start`)을 담는다. `metrics.json`은 `run_backtest_loo` 결과.
+- **Task 8:** 시민용 화면의 날짜 상세는 시간별 막대 대신 오후·저녁 두 구간 카드. 근거 화면에 교차 검증 표와 저녁 예보의 한계 문구.
