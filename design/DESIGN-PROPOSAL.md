@@ -1,6 +1,6 @@
 # 디자인 제안: Civic Data Platform x Premium Editorial
 
-상태: **승인 대기**. 서비스 코드(`site/`)는 아직 바꾸지 않았습니다. 이 폴더(`design/`)는 서비스와 분리된 제안 자료입니다.
+상태: **2026-11-17 승인, 구현 완료.** 구현된 시스템의 기준은 저장소 루트의 DESIGN.md입니다. 이 폴더(`design/`)는 승인 당시의 제안 자료로 남겨 둡니다.
 
 - 목업 이미지: [preview/mockup-calendar-1440.png](preview/mockup-calendar-1440.png) (1440px, 2배 해상도), 참고용 모바일 [preview/mockup-calendar-390.png](preview/mockup-calendar-390.png)
 - 목업 원본: [preview/calendar.html](preview/calendar.html), 토큰: [preview/tokens.css](preview/tokens.css)
