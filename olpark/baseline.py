@@ -23,7 +23,12 @@ def fit_baseline(df: pd.DataFrame, months: list[int]) -> pd.DataFrame:
 
 
 def _nearest_month(target: int, available: list[int]) -> int:
-    return min(available, key=lambda m: (min((m - target) % 12, (target - m) % 12), m))
+    """달력상 가장 가까운 월. 거리가 같으면 대상 월보다 앞선 달."""
+    def key(m):
+        back, fwd = (target - m) % 12, (m - target) % 12
+        dist = min(back, fwd)
+        return (dist, 0 if back == dist else 1)
+    return min(available, key=key)
 
 
 def baseline_at(table: pd.DataFrame, ts: pd.Timestamp, holiday_name: str | None = None):

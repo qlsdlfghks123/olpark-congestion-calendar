@@ -64,3 +64,8 @@ def test_baseline_from_loaded_csv_has_weekday_cells():
     df = load_linked(str(Path(__file__).parent / "fixtures" / "linked_small.csv"))
     t = fit_baseline(df, [7, 10])
     assert set(t.day_type) == {"weekday"}
+
+
+def test_fallback_tie_prefers_month_before_target():
+    t = pd.DataFrame({"month": [1, 7], "day_type": "weekday", "hour": 10, "base": [100.0, 700.0]})
+    assert baseline_at(t, Timestamp("2025-10-01 10:00")) == (700.0, 7)
