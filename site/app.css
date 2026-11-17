@@ -166,7 +166,7 @@ input[type="date"].input { font-variant-numeric: tabular-nums; }
 .dow { padding: 9px 12px; font-size: var(--fs-label); font-weight: 600; color: var(--muted); }
 .dow.sun { color: var(--holiday); }
 .pad { background: var(--ground); }
-.day { position: relative; display: flex; flex-direction: column; min-width: 0; height: 114px; padding: 10px 12px 12px; border-radius: 0; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; transition: background-color .15s var(--ease); }
+.day { position: relative; display: flex; flex-direction: column; min-width: 0; height: 114px; padding: 10px 12px 11px; border-radius: 0; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; transition: background-color .15s var(--ease); }
 .day:hover { background: var(--ground); }
 .day.flag { background: var(--signal-wash); }
 .day.flag:hover { background: var(--signal-wash-hover); }
@@ -180,12 +180,13 @@ input[type="date"].input { font-variant-numeric: tabular-nums; }
 .day.sel .n { display: inline-grid; place-items: center; min-width: 26px; height: 26px; margin: -2px 0 -2px -5px; padding: 0 5px; border-radius: 6px; background: var(--navy); color: var(--on-navy); }
 .day.today .n { display: inline-grid; place-items: center; min-width: 26px; height: 26px; margin: -2px 0 -2px -5px; padding: 0 5px; border-radius: 13px; background: var(--navy); color: var(--on-navy); }
 .day .hn { min-width: 0; font-size: var(--fs-micro); font-weight: 600; color: var(--holiday); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.day .t { margin-top: 4px; font-size: var(--fs-label); line-height: 1.38; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day > * { flex-shrink: 0; }
+.day .t { margin-top: 3px; font-size: var(--fs-label); line-height: 1.38; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .day.flag .t { color: var(--ink); font-weight: 500; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .day .t em { font-style: normal; font-weight: 400; color: var(--muted); }
-.day .me { margin-top: auto; padding-top: 2px; font-size: var(--fs-label); font-weight: 650; line-height: 1.3; color: var(--navy); font-variant-numeric: tabular-nums; }
+.day .me { margin-top: auto; font-size: var(--fs-label); font-weight: 650; line-height: 1.3; color: var(--navy); font-variant-numeric: tabular-nums; }
 .day .strip { margin-top: auto; }
-.day .me + .strip { margin-top: 8px; }
+.day .me + .strip { margin-top: 6px; }
 .calnote { margin-top: 12px; font-size: var(--fs-label); color: var(--muted); }
 
 /* 다가오는 공연 혼잡 */
