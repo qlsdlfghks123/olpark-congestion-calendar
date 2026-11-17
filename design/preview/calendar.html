@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>디자인 목업: 공연 혼잡 캘린더</title>
+<link rel="stylesheet" href="../../site/fonts/pretendard.css">
+<link rel="stylesheet" href="tokens.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--font); font-size: var(--fs-body); line-height: 1.55; word-break: keep-all; overflow-wrap: anywhere; font-feature-settings: "tnum" 0; }
+::selection { background: #DCE3EE; color: var(--ink); }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; color: inherit; }
+.num { font-variant-numeric: tabular-nums; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+svg.ic { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+/* 머리띠 */
+.shell { background: var(--navy); color: var(--on-navy); }
+.shell-in { display: flex; align-items: center; gap: 40px; height: 60px; padding: 0 var(--s8); }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--on-navy); text-decoration: none; font-size: var(--fs-title-s); font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.brand svg { width: 24px; height: 24px; }
+.nav { display: flex; gap: 28px; height: 100%; }
+.nav a { position: relative; display: flex; align-items: center; color: var(--on-navy-muted); text-decoration: none; font-size: var(--fs-body); font-weight: 500; white-space: nowrap; }
+.nav a:hover { color: var(--on-navy); }
+.nav a[aria-current="page"] { color: var(--on-navy); font-weight: 650; }
+.nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--on-navy); }
+.shell-meta { margin-left: auto; display: flex; gap: 20px; color: var(--on-navy-muted); font-size: var(--fs-label); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.shell-meta b { color: var(--on-navy); font-weight: 600; }
+
+/* 작업 판 */
+.page { padding: var(--s6) var(--s8) 0; }
+.sheet { display: grid; grid-template-columns: minmax(0, 1fr) 400px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sheet); }
+.cal-col { padding: var(--s7) var(--s7) var(--s8); min-width: 0; }
+.rail { border-left: 1px solid var(--line); min-width: 0; }
+
+/* 달 머리 */
+.calhead { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s4) var(--s6); flex-wrap: wrap; }
+.calhead h2 { font-size: var(--fs-display); font-weight: 700; letter-spacing: -.03em; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.stand { margin-top: 8px; font-size: var(--fs-body); color: var(--ink-2); }
+.stand b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.months { display: inline-flex; border: 1px solid var(--control); border-radius: var(--r-ctl); overflow: hidden; }
+.months button { min-height: 38px; padding: 0 16px; border: 0; border-left: 1px solid var(--line); background: var(--surface); font-size: var(--fs-body-s); font-weight: 600; color: var(--ink-2); cursor: pointer; font-variant-numeric: tabular-nums; }
+.months button:first-child { border-left: 0; }
+.months button[aria-pressed="true"] { background: var(--navy); color: var(--on-navy); }
+
+/* 범례 */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: var(--s5) 0 var(--s3); font-size: var(--fs-label); color: var(--ink-2); }
+.legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.legend .strip { width: 52px; }
+.sw { display: inline-block; width: 14px; height: 8px; border-radius: var(--r-mark); }
+.sw.lv1 { background: var(--signal); }
+.sw.lv2 { background: var(--signal-strong); }
+.sw.tick { width: 5px; height: 16px; border-radius: 1px; background: var(--navy); }
+.sw.tick.opt { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--navy); }
+
+/* 하루 막대 (시그니처): 12시에서 23시까지의 시간축 */
+.strip { position: relative; display: block; height: 8px; }
+.strip .seg { position: absolute; top: 0; bottom: 0; border-radius: var(--r-mark); background: var(--idle); }
+.strip .seg.a { left: 0; width: calc(45.4545% - 1px); }
+.strip .seg.e { left: calc(45.4545% + 1px); right: 0; }
+.strip .seg.lv1 { background: var(--signal); }
+.strip .seg.lv2 { background: var(--signal-strong); }
+.strip .tick { position: absolute; top: -2px; bottom: -2px; min-width: 3px; border-radius: 1px; background: var(--navy); opacity: .42; }
+.strip .tick.opt { background: transparent; box-shadow: inset 0 0 0 1.5px var(--navy); }
+.strip .tick.hit { top: -5px; bottom: -5px; min-width: 5px; opacity: 1; box-shadow: 0 0 0 1.5px var(--surface); }
+.strip .tick.hit.opt { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--navy), 0 0 0 1.5px var(--surface); }
+
+/* 달력 */
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.cal > * { border: 0; border-bottom: 1px solid var(--line); }
+.cal > :not(:nth-child(7n)) { border-right: 1px solid var(--line-soft); }
+.dow { padding: 9px 12px; font-size: var(--fs-label); font-weight: 600; color: var(--muted); }
+.dow.sun { color: var(--holiday); }
+.pad { background: var(--ground); }
+.cell { position: relative; display: flex; flex-direction: column; min-width: 0; height: 114px; padding: 10px 12px 12px; background: var(--surface); text-align: left; cursor: pointer; transition: background-color .15s var(--ease); }
+.cell:hover { background: var(--ground); }
+.cell.flag { background: var(--signal-wash); }
+.cell.flag:hover { background: var(--signal-wash-hover); }
+.cell.sel { box-shadow: inset 0 0 0 2px var(--navy); }
+.cell:focus-visible { outline-offset: -4px; z-index: 1; }
+.cell .top { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.cell .n { font-size: var(--fs-title-s); font-weight: 650; line-height: 22px; font-variant-numeric: tabular-nums; }
+.cell.sun .n, .cell.hol .n { color: var(--holiday); }
+.cell .hn { font-size: var(--fs-micro); font-weight: 600; color: var(--holiday); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell .t { margin-top: 4px; font-size: var(--fs-label); line-height: 1.38; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell.flag .t { color: var(--ink); font-weight: 500; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.cell .t em { font-style: normal; color: var(--muted); font-weight: 400; }
+.cell .me { margin-top: auto; font-size: var(--fs-label); font-weight: 650; color: var(--navy); line-height: 1.3; font-variant-numeric: tabular-nums; }
+.cell .strip { margin-top: auto; }
+.cell .me + .strip { margin-top: 8px; }
+
+/* 다가오는 공연 혼잡 */
+.upcoming { margin-top: var(--s10); }
+.sec-head { display: flex; align-items: baseline; gap: 10px; }
+.sec-head h2 { font-size: var(--fs-title-m); font-weight: 700; letter-spacing: -.01em; }
+.sec-head .count { font-size: var(--fs-body-s); color: var(--muted); font-variant-numeric: tabular-nums; }
+.sec-head .act { margin-left: auto; }
+.quiet { display: inline-flex; align-items: center; min-height: 36px; padding: 0 10px; border: 0; border-radius: var(--r-ctl); background: transparent; color: var(--navy); font-size: var(--fs-body-s); font-weight: 600; cursor: pointer; }
+.quiet:hover { background: var(--navy-wash); }
+.uplist { list-style: none; margin: var(--s3) 0 0; padding: 0; border-top: 1px solid var(--line); }
+.uplist li { border-bottom: 1px solid var(--line-soft); }
+.uplist button { display: grid; grid-template-columns: 124px 116px 152px minmax(0, 1fr) 104px; align-items: center; gap: 0 20px; width: 100%; min-height: 54px; padding: 0 8px; border: 0; background: transparent; text-align: left; cursor: pointer; }
+.uplist button:hover { background: var(--ground); }
+.uplist button[aria-current="date"] { background: var(--navy-wash); }
+.uplist .d { font-size: var(--fs-body); font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.uplist .d span { margin-left: 5px; font-weight: 500; color: var(--muted); }
+.uplist .lv { font-size: var(--fs-body-s); font-weight: 600; color: var(--signal-ink); white-space: nowrap; }
+.uplist .ti { font-size: var(--fs-body-s); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.uplist .mi { font-size: var(--fs-label); font-weight: 650; color: var(--navy); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* 오른쪽 단: 내 강좌 */
+.mycourse { padding: var(--s6) var(--s7); border-bottom: 1px solid var(--line); }
+.rail-head { display: flex; align-items: center; justify-content: space-between; }
+.rail-head h2 { font-size: var(--fs-title-s); font-weight: 700; }
+.rail-head .quiet { margin-right: -10px; }
+.search { position: relative; margin-top: var(--s3); }
+.search > svg { position: absolute; left: 13px; top: 13px; color: var(--muted); pointer-events: none; }
+.input { width: 100%; min-height: 44px; padding: 0 44px 0 40px; border: 1px solid var(--control); border-radius: var(--r-ctl); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--fs-body); font-weight: 600; }
+.search .clear { position: absolute; right: 4px; top: 4px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); cursor: pointer; }
+.cmeta { margin-top: var(--s3); font-size: var(--fs-body-s); color: var(--ink-2); line-height: 1.6; font-variant-numeric: tabular-nums; }
+.cmeta p + p { color: var(--muted); }
+.verdict { margin-top: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--line-soft); }
+.verdict .q { font-size: var(--fs-body-s); color: var(--ink-2); }
+.verdict .a { display: flex; align-items: baseline; gap: 10px; margin-top: 2px; }
+.verdict .a b { font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; color: var(--navy); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.verdict .a span { font-size: var(--fs-body-s); color: var(--muted); }
+.hits { display: grid; grid-template-columns: 34px minmax(0, 1fr); align-items: start; gap: 6px 8px; margin-top: var(--s3); }
+.hits dt { padding-top: 6px; font-size: var(--fs-label); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hits dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.hits button { min-width: 34px; height: 32px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); font-size: var(--fs-body-s); font-weight: 600; color: var(--ink); cursor: pointer; font-variant-numeric: tabular-nums; }
+.hits button:hover { border-color: var(--navy); }
+.hits button[aria-current="date"] { background: var(--navy); border-color: var(--navy); color: var(--on-navy); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; margin-top: var(--s4); padding: 0 16px; border: 0; border-radius: var(--r-ctl); background: var(--navy); color: var(--on-navy); font-size: var(--fs-body); font-weight: 650; text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--navy-hover); }
+
+/* 오른쪽 단: 날짜 상세 */
+.detail { padding: var(--s6) var(--s7) var(--s7); }
+.detail h2 { font-size: var(--fs-title-l); font-weight: 700; letter-spacing: -.02em; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.detail .lede { margin-top: 6px; font-size: var(--fs-body); color: var(--ink-2); }
+.day { margin-top: var(--s5); }
+.day-cols, .day-nums { display: grid; grid-template-columns: 45.4545% minmax(0, 1fr); column-gap: 10px; }
+.day-cols .h { font-size: var(--fs-body-s); font-weight: 700; color: var(--ink); }
+.day-cols .h span { margin-left: 4px; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+.day .strip { height: 20px; margin-top: 8px; }
+.day .strip .seg { border-radius: 4px; }
+.day .strip .tick { top: -5px; bottom: -5px; border-radius: 2px; box-shadow: 0 0 0 2px var(--surface); }
+.day .strip .tick.opt { box-shadow: inset 0 0 0 2px var(--navy), 0 0 0 2px var(--surface); }
+.axis { position: relative; height: 18px; margin-top: 6px; font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+.axis span { position: absolute; top: 0; white-space: nowrap; }
+.axis .mine { transform: translateX(-50%); color: var(--navy); font-weight: 650; }
+.day-nums { margin-top: var(--s3); }
+.day-nums .lv { font-size: var(--fs-body-s); font-weight: 650; color: var(--signal-ink); }
+.day-nums .lv.idle { color: var(--muted); font-weight: 600; }
+.day-nums .pk { margin-top: 2px; font-size: var(--fs-body); font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+.day-nums .vs { font-size: var(--fs-label); color: var(--muted); font-variant-numeric: tabular-nums; }
+.notice { display: flex; gap: 12px; margin-top: var(--s5); padding: 12px 14px; border-radius: var(--r-ctl); background: var(--navy-wash); color: var(--navy); font-size: var(--fs-body-s); line-height: 1.55; }
+.notice .sw { flex: none; margin-top: 3px; }
+.notice b { font-weight: 700; }
+.shows { margin-top: var(--s6); }
+.shows h3 { font-size: var(--fs-body-s); font-weight: 700; }
+.shows h3 span { margin-left: 4px; color: var(--muted); font-weight: 500; }
+.shows ol { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.shows li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 0 8px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.shows .tm { font-size: var(--fs-body-s); font-weight: 650; font-variant-numeric: tabular-nums; }
+.shows .nm { font-size: var(--fs-body-s); font-weight: 500; color: var(--ink); line-height: 1.45; }
+.shows .vn { margin-top: 2px; font-size: var(--fs-label); color: var(--muted); }
+.fine { margin-top: var(--s4); font-size: var(--fs-micro); line-height: 1.6; color: var(--muted); }
+
+/* 바닥글 */
+.foot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4) var(--s10); padding: var(--s8) var(--s8) var(--s10); font-size: var(--fs-body-s); color: var(--muted); }
+.foot h2 { font-size: var(--fs-body-s); font-weight: 700; color: var(--ink-2); margin-bottom: 6px; }
+.foot ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.foot a { color: var(--ink-2); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+.foot p + p { margin-top: 6px; }
+
+/* 반응형: 태블릿과 휴대폰 */
+@media (max-width: 1279px) { .sheet { grid-template-columns: minmax(0, 1fr) 360px; } .uplist button { grid-template-columns: 112px 104px minmax(0, 1fr) 96px; } .uplist .lv { display: none; } }
+@media (max-width: 1023px) {
+  .sheet { grid-template-columns: minmax(0, 1fr); }
+  .cal-col, .rail { display: contents; }
+  .sheet > * { min-width: 0; }
+  .mycourse { order: 1; } .calwrap { order: 2; padding: var(--s6); } .detail { order: 3; border-top: 1px solid var(--line); } .upcoming { order: 4; margin: 0; padding: var(--s6); border-top: 1px solid var(--line); }
+  .shell-meta { display: none; }
+}
+@media (max-width: 640px) {
+  .shell-in { flex-wrap: wrap; height: auto; gap: 0; padding: 0 var(--s4); }
+  .brand { padding: 14px 0 4px; font-size: var(--fs-body); }
+  .nav { width: 100%; height: 44px; gap: 22px; overflow-x: auto; }
+  .page { padding: var(--s3) var(--s3) 0; }
+  .mycourse, .detail { padding: var(--s5) var(--s4); }
+  .calwrap, .upcoming { padding: var(--s5) var(--s4); }
+  .calhead h2 { font-size: 1.5rem; }
+  .months { width: 100%; } .months button { flex: 1; min-height: 44px; padding: 0; }
+  .legend { gap: 6px 14px; }
+  .legend .wide { flex-basis: 100%; }
+  .dow { padding: 8px 0; text-align: center; }
+  .cell { height: 66px; padding: 6px 4px 8px; align-items: stretch; }
+  .cell .top { justify-content: center; }
+  .cell .n { font-size: var(--fs-body-s); }
+  .cell .hn, .cell .t, .cell.flag .t, .cell .me { display: none; }
+  .cell .strip { height: 7px; }
+  .uplist button { grid-template-columns: minmax(0, 1fr) 88px; gap: 4px 12px; padding: 10px 4px; }
+  .uplist .strip { grid-row: 1; grid-column: 2; }
+  .uplist .ti { grid-column: 1 / -1; white-space: normal; }
+  .uplist .mi { text-align: left; }
+  .foot { grid-template-columns: minmax(0, 1fr); padding: var(--s6) var(--s4) var(--s8); }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; } }
+</style>
+</head>
+<body>
+<header class="shell">
+  <div class="shell-in">
+    <a class="brand" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="17" rx="3.5" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M7.25 9h3.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="6.5" y="13.75" width="4.75" height="3" rx=".8" fill="#AEB9CB"/><rect x="12.5" y="13.75" width="5" height="3" rx=".8" fill="#E87329"/></svg>올림픽공원 공연 혼잡 캘린더</a>
+    <nav class="nav" aria-label="화면 이동"><a href="#" aria-current="page">수강생 캘린더</a><a href="#">기관 겹침 목록</a><a href="#">근거와 검증</a></nav>
+    <p class="shell-meta" id="shell-meta"></p>
+  </div>
+</header>
+
+<main class="page">
+  <h1 class="sr">공연 혼잡 캘린더</h1>
+  <div class="sheet">
+    <div class="cal-col">
+      <section class="calwrap" aria-labelledby="month">
+        <div class="calhead">
+          <div>
+            <h2 id="month"></h2>
+            <p class="stand" id="stand"></p>
+          </div>
+          <div class="months" id="months" role="group" aria-label="달 선택"></div>
+        </div>
+        <div class="legend" id="legend"></div>
+        <div class="cal" id="cal" role="group" aria-label="예보 달력"></div>
+      </section>
+      <section class="upcoming" aria-labelledby="h-up">
+        <div class="sec-head"><h2 id="h-up">다가오는 공연 혼잡</h2><span class="count" id="up-count"></span><button class="quiet act" type="button" id="up-more"></button></div>
+        <ul class="uplist" id="uplist"></ul>
+      </section>
+    </div>
+    <aside class="rail" aria-label="내 강좌와 날짜 상세">
+      <section class="mycourse" aria-labelledby="h-course" id="mycourse"></section>
+      <section class="detail" id="detail" aria-live="polite"></section>
+    </aside>
+  </div>
+</main>
+
+<footer class="foot">
+  <div><h2>데이터 출처</h2><ul>
+    <li><a href="#">한국체육산업개발 올림픽공원 2025 차량입출차, 공연, 날씨정보 등 연계 데이터 (API_CPM_009)</a></li>
+    <li><a href="#">한국체육산업개발 올림픽수영장 강좌정보 (2026-05-11 기준 파일)</a></li>
+    <li><a href="#">올림픽공원 홈페이지 공연 일정안내 (앞으로의 공연)</a></li></ul></div>
+  <div><h2>알아 두실 점</h2><p id="def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
+</footer>
+
+<script src="snapshot.js"></script>
+<script>
+(function () {
+  "use strict";
+  var S = window.SNAP, DOW = ["월", "화", "수", "목", "금", "토", "일"];
+  var SIZE = { L: "대형", M: "중형", S: "소형" }, LV = { "보통": 0, "붐빔": 1, "매우 붐빔": 2 };
+  var SELECTED = "2026-12-05";
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function ymd(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function parse(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function dowIdx(d) { return (d.getDay() + 6) % 7; }
+  function md(s) { var d = parse(s); return (d.getMonth() + 1) + "월 " + d.getDate() + "일"; }
+  function about(x) { return (Math.round(x / 10) * 10).toLocaleString("ko-KR"); }
+  function num(x) { return Math.round(x).toLocaleString("ko-KR"); }
+  function mins(t) { var p = t.split(":"); return +p[0] * 60 + +p[1]; }
+  function shortTitle(t) { return String(t).replace(/^\s*\[[^\]]*\]\s*/, "").replace(/^(19|20)\d{2}\s+/, ""); }
+  function cellTitle(t) { return shortTitle(t).replace(/\s+[\[〈‘'].*$/, "").replace(/\s+-\s+.*$/, ""); }
+  function lv(b) { return b && b.flag ? LV[b.level] || 0 : 0; }
+
+  var C = S.course, cs = mins(C.start), ce = mins(C.end);
+  function meets(key) {
+    if (S.holidays[key]) return null;
+    var i = dowIdx(parse(key));
+    if (C.days.indexOf(i) >= 0) return "reg";
+    if (C.optional_days.indexOf(i) >= 0) return "opt";
+    return null;
+  }
+
+  /* 하루 막대: 12시~23시 시간축 위에 오후와 저녁 두 구간, 내 수업 눈금 */
+  function strip(key) {
+    var s = el("span", "strip"), bl = S.blocks[key] || {};
+    s.setAttribute("aria-hidden", "true");
+    var a = el("span", "seg a"), e = el("span", "seg e");
+    if (lv(bl["오후"])) a.classList.add("lv" + lv(bl["오후"]));
+    if (lv(bl["저녁"])) e.classList.add("lv" + lv(bl["저녁"]));
+    s.appendChild(a); s.appendChild(e);
+    var m = meets(key);
+    if (m && cs < 23 * 60 && ce > 12 * 60) {
+      var t = el("span", "tick" + (m === "opt" ? " opt" : "") + (S.mine[key] ? " hit" : ""));
+      t.style.left = ((Math.max(cs, 720) - 720) / 660 * 100) + "%";
+      t.style.width = ((Math.min(ce, 1380) - Math.max(cs, 720)) / 660 * 100) + "%";
+      s.appendChild(t);
+    }
+    return s;
+  }
+
+  function dayShows(key) {
+    var bl = S.blocks[key] || {}, out = [];
+    ["오후", "저녁"].forEach(function (k) { if (bl[k] && bl[k].flag) bl[k].titles.forEach(function (t) { if (out.indexOf(t) < 0) out.push(t); }); });
+    if (out.length) return out;
+    var rank = { L: 0, M: 1, S: 2 };
+    (S.schedule[key] || []).slice().sort(function (x, y) { return rank[x.size] - rank[y.size] || (x.time < y.time ? -1 : 1); })
+      .forEach(function (s) { if (out.indexOf(s.title) < 0) out.push(s.title); });
+    return out;
+  }
+
+  /* 머리띠 메타 */
+  var gen = S.generated_at;
+  $("shell-meta").innerHTML = "<span>예보 기간 <b>" + md(S.period.start) + " ~ " + md(S.period.end) + "</b></span><span>" +
+    (+gen.slice(5, 7)) + "월 " + (+gen.slice(8, 10)) + "일 생성</span>";
+
+  /* 달 머리 */
+  var cur = parse(S.month + "-01"), ym = S.month;
+  $("month").textContent = cur.getFullYear() + "년 " + (cur.getMonth() + 1) + "월";
+  var fl = S.flagged_days.filter(function (d) { return d.slice(0, 7) === ym; }).length;
+  var mineIn = Object.keys(S.mine).filter(function (d) { return d.slice(0, 7) === ym; }).length;
+  $("stand").innerHTML = "동2, 남2, 북2 주차장이 공연 때문에 평소보다 붐빌 날 <b>" + fl + "일</b>, 그중 내 수업과 겹치는 날 <b>" + mineIn + "일</b>입니다.";
+  ["11월", "12월", "1월", "2월"].forEach(function (m, i) {
+    var b = el("button", null, m); b.type = "button"; b.setAttribute("aria-pressed", String(i === 1)); $("months").appendChild(b);
+  });
+
+  /* 범례 */
+  var lg = $("legend");
+  var l1 = el("span", "wide"), ex = el("span", "strip"); ex.setAttribute("aria-hidden", "true");
+  ex.appendChild(el("span", "seg a")); ex.appendChild(el("span", "seg e"));
+  l1.appendChild(ex); l1.appendChild(document.createTextNode("막대 왼쪽 오후 12~16시, 오른쪽 저녁 17~22시")); lg.appendChild(l1);
+  [["sw lv1", "공연으로 붐빔"], ["sw lv2", "공연으로 매우 붐빔"], ["sw tick", "내 수업"], ["sw tick opt", "토요일 선택 수업"]].forEach(function (x) {
+    var s = el("span"), i = el("i", x[0]); i.setAttribute("aria-hidden", "true"); s.appendChild(i); s.appendChild(document.createTextNode(x[1])); lg.appendChild(s);
+  });
+
+  /* 달력 */
+  var cal = $("cal");
+  DOW.forEach(function (d, i) { var h = el("div", "dow" + (i === 6 ? " sun" : ""), d); h.setAttribute("aria-hidden", "true"); cal.appendChild(h); });
+  var first = dowIdx(cur), days = new Date(cur.getFullYear(), cur.getMonth() + 1, 0).getDate();
+  for (var i = 0; i < first; i++) cal.appendChild(el("div", "pad"));
+  for (var d = 1; d <= days; d++) {
+    var date = new Date(cur.getFullYear(), cur.getMonth(), d), key = ymd(date), bl = S.blocks[key] || {};
+    var b = el("button", "cell"); b.type = "button";
+    var flag = lv(bl["오후"]) || lv(bl["저녁"]);
+    if (flag) b.classList.add("flag");
+    if (dowIdx(date) === 6) b.classList.add("sun");
+    if (S.holidays[key]) b.classList.add("hol");
+    if (key === SELECTED) { b.classList.add("sel"); b.setAttribute("aria-pressed", "true"); } else b.setAttribute("aria-pressed", "false");
+    var top = el("span", "top"); top.appendChild(el("span", "n", String(d)));
+    if (S.holidays[key]) top.appendChild(el("span", "hn", S.holidays[key]));
+    b.appendChild(top);
+    var titles = dayShows(key);
+    if (titles.length) {
+      var t = el("span", "t", cellTitle(titles[0]));
+      if (titles.length > 1) { t.appendChild(document.createTextNode(" ")); t.appendChild(el("em", null, "외 " + (titles.length - 1))); }
+      b.appendChild(t);
+    }
+    if (S.mine[key]) b.appendChild(el("span", "me", "내 수업 " + S.mine[key].start));
+    b.appendChild(strip(key));
+    cal.appendChild(b);
+  }
+  var tail = (first + days) % 7; if (tail) for (var j = tail; j < 7; j++) cal.appendChild(el("div", "pad"));
+
+  /* 다가오는 공연 혼잡 */
+  var up = S.flagged_days.filter(function (k) { return k >= S.period.start; });
+  $("up-count").textContent = up.length + "일";
+  $("up-more").textContent = "모두 보기";
+  up.slice(0, 8).forEach(function (k) {
+    var li = el("li"), bt = el("button"), bl = S.blocks[k]; bt.type = "button";
+    if (k === SELECTED) bt.setAttribute("aria-current", "date");
+    var dd = el("span", "d", md(k)); dd.appendChild(el("span", null, DOW[dowIdx(parse(k))])); bt.appendChild(dd);
+    bt.appendChild(strip(k));
+    var said = ["오후", "저녁"].filter(function (x) { return bl[x] && bl[x].flag; }).map(function (x) { return x + " " + bl[x].level; });
+    bt.appendChild(el("span", "lv", said.join(", ")));
+    bt.appendChild(el("span", "ti", dayShows(k).map(cellTitle).join(", ")));
+    bt.appendChild(el("span", "mi", S.mine[k] ? "내 수업 " + S.mine[k].start : ""));
+    li.appendChild(bt); $("uplist").appendChild(li);
+  });
+
+  /* 내 강좌 */
+  function dayList(ds) {
+    var run = ds.length >= 3 && ds.every(function (x, i) { return i === 0 || x === ds[i - 1] + 1; });
+    return run ? DOW[ds[0]] + "~" + DOW[ds[ds.length - 1]] : ds.map(function (i) { return DOW[i]; }).join(", ");
+  }
+  var mk = Object.keys(S.mine).sort(), opt = mk.filter(function (k) { return S.mine[k].optional; }).length;
+  var mc = $("mycourse");
+  mc.innerHTML =
+    '<div class="rail-head"><h2 id="h-course">내 강좌</h2><button class="quiet" type="button">다른 강좌 고르기</button></div>' +
+    '<div class="search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>' +
+    '<input class="input" type="search" role="combobox" aria-expanded="false" aria-label="강좌 이름으로 찾기" value="' + C.name + '">' +
+    '<button class="clear" type="button" aria-label="검색어 지우기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7 7 17M7 7l10 10"/></svg></button></div>' +
+    '<div class="cmeta"><p>' + dayList(C.days) + " " + C.start + "~" + C.end + (C.optional_days.length ? ", 토요일 선택 수업" : "") + '</p><p>' +
+    C.group + ", 정원 " + C.capacity + "명, 강좌번호 " + C.course_no + "</p></div>" +
+    '<div class="verdict"><p class="q">예보 기간에 공연 혼잡과 겹치는 수업</p><p class="a"><b>' + mk.length + "회</b><span>토요일 선택 수업 " + opt + "회 포함</span></p>" +
+    '<dl class="hits" id="hits"></dl></div>' +
+    '<a class="btn" href="#"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14"/></svg>겹치는 날을 휴대폰 캘린더에 추가</a>';
+  var byMonth = {};
+  mk.forEach(function (k) { var m = (+k.slice(5, 7)) + "월"; (byMonth[m] = byMonth[m] || []).push(k); });
+  Object.keys(byMonth).forEach(function (m) {
+    var dt = el("dt", null, m), dd = el("dd");
+    byMonth[m].forEach(function (k) {
+      var bt = el("button", null, String(+k.slice(8))); bt.type = "button";
+      bt.setAttribute("aria-label", md(k) + " " + DOW[dowIdx(parse(k))] + "요일 " + S.mine[k].block + " " + S.mine[k].level + (S.mine[k].optional ? ", 토요일 선택 수업" : ""));
+      if (k === SELECTED) bt.setAttribute("aria-current", "date");
+      dd.appendChild(bt);
+    });
+    $("hits").appendChild(dt); $("hits").appendChild(dd);
+  });
+
+  /* 날짜 상세 */
+  var key = SELECTED, bl = S.blocks[key], sd = parse(key), box = $("detail");
+  box.appendChild(el("h2", null, sd.getFullYear() + "년 " + md(key) + " " + DOW[dowIdx(sd)] + "요일"));
+  var fA = lv(bl["오후"]), fE = lv(bl["저녁"]);
+  box.appendChild(el("p", "lede", fA && fE ? "공연 때문에 오후와 저녁 모두 평소보다 붐빌 것으로 보입니다." :
+    fA ? "공연 때문에 오후가 평소보다 붐빌 것으로 보입니다." : fE ? "공연 때문에 저녁이 평소보다 붐빌 것으로 보입니다." : "공연으로 인한 혼잡은 예상되지 않습니다."));
+  var day = el("div", "day");
+  var cols = el("div", "day-cols");
+  [["오후", "12~16시"], ["저녁", "17~22시"]].forEach(function (x) { var h = el("p", "h", x[0]); h.appendChild(el("span", null, x[1])); cols.appendChild(h); });
+  day.appendChild(cols);
+  day.appendChild(strip(key));
+  var ax = el("div", "axis"); ax.setAttribute("aria-hidden", "true");
+  [["12시", 0], ["17시", 45.4545], ["23시", 100]].forEach(function (x) {
+    var s = el("span", null, x[0]); s.style.left = x[1] + "%"; if (x[1] === 100) s.style.transform = "translateX(-100%)"; else if (x[1] > 0) s.style.transform = "translateX(-50%)"; ax.appendChild(s);
+  });
+  if (meets(key)) {
+    var ml = el("span", "mine", "내 수업 " + C.start);
+    ml.style.left = ((cs - 720) / 660 * 100) + "%"; ax.appendChild(ml);
+  }
+  day.appendChild(ax);
+  var nums = el("div", "day-nums");
+  ["오후", "저녁"].forEach(function (k) {
+    var x = bl[k], c = el("div"), f = lv(x);
+    c.appendChild(el("p", "lv" + (f ? "" : " idle"), f ? "공연으로 " + x.level : (x.level === "보통" ? "보통" : "평소에도 " + x.level)));
+    c.appendChild(el("p", "pk", "최대 약 " + about(x.pred) + "대"));
+    var diff = x.pred - x.base;
+    c.appendChild(el("p", "vs", diff >= 50 ? "평소보다 약 " + about(diff) + "대 많음" : "평소 수준"));
+    nums.appendChild(c);
+  });
+  day.appendChild(nums);
+  box.appendChild(day);
+
+  var me = S.mine[key];
+  if (me) {
+    var n = el("div", "notice"), sw = el("i", "sw tick" + (me.optional ? " opt" : "")); sw.setAttribute("aria-hidden", "true"); n.appendChild(sw);
+    var p = el("p"); p.appendChild(el("b", null, "내 수업 " + me.start + "~" + me.end));
+    p.appendChild(document.createTextNode((me.optional ? " 토요일 선택 수업이 " : " 수업이 ") + me.block + " 혼잡과 겹칩니다. 평소보다 일찍 출발하거나 대중교통을 이용하세요."));
+    n.appendChild(p); box.appendChild(n);
+  }
+
+  var list = (S.schedule[key] || []).slice().sort(function (a, b) { return a.time < b.time ? -1 : 1; });
+  var sh = el("div", "shows"), h3 = el("h3", null, "이날 공연"); h3.appendChild(el("span", null, list.length + "회")); sh.appendChild(h3);
+  var ol = el("ol");
+  list.forEach(function (s) {
+    var li = el("li"); li.appendChild(el("span", "tm", s.assumed ? "미정" : s.time));
+    var w = el("div"); w.appendChild(el("p", "nm", s.title)); w.appendChild(el("p", "vn", s.venue + ", " + SIZE[s.size] + " 공연")); li.appendChild(w); ol.appendChild(li);
+  });
+  sh.appendChild(ol); box.appendChild(sh);
+  var fb = bl["오후"].fallback || bl["저녁"].fallback;
+  box.appendChild(el("p", "fine", "붐빔은 2025년 시간대별 주차대수 상위 25%(" + num(S.thresholds.p75) + "대 이상), 매우 붐빔은 상위 10%(" + num(S.thresholds.p90) +
+    "대 이상)입니다." + (fb ? " 이 달은 2025년 자료가 없어 " + Math.round(fb) + "월의 평소 패턴을 썼습니다." : "")));
+
+  $("def").textContent = "붐빔은 2025년 시간대별 주차대수 상위 25% (" + num(S.thresholds.p75) + "대 이상), 매우 붐빔은 상위 10% (" + num(S.thresholds.p90) + "대 이상)입니다. 동2, 남2, 북2 주차장 기준입니다.";
+})();
+</script>
+</body>
+</html>

@@ -1,243 +1,323 @@
 ---
 name: 올림픽공원 공연 혼잡 캘린더
-description: 공연 때문에 붐비는 오후와 저녁을 수영장 강좌 시간표 위에 미리 보여 주는 게시판
+description: 날짜마다 12~23시 시간축 막대 위에 공연 혼잡 구간과 내 수업 시각을 함께 놓는 시민용 데이터 달력
 colors:
-  shell-navy: "#0f172a"
-  shell-ink: "#f8fafc"
-  shell-muted: "#cbd5e1"
-  shell-mark: "#38bdf8"
-  pool-blue: "#0369a1"
-  pool-blue-deep: "#075985"
-  pool-wash: "#e0f2fe"
-  ground: "#f8fafc"
-  tile: "#ffffff"
-  tile-hover: "#f1f5f9"
-  grout: "#e2e8f0"
-  edge: "#cbd5e1"
-  lane-idle: "#e8edf3"
-  ink: "#020617"
-  ink-secondary: "#334155"
-  ink-muted: "#475569"
-  ink-faint: "#64748b"
-  rope-amber: "#d97706"
-  rope-amber-wash: "#fef3c7"
-  rope-amber-ink: "#92400e"
-  rope-red: "#b91c1c"
-  rope-red-wash: "#fee2e2"
-  rope-red-ink: "#991b1b"
+  navy: "#111d32"
+  navy-hover: "#22314d"
+  navy-wash: "#edf0f5"
+  ground: "#f7f8fa"
+  surface: "#ffffff"
+  line: "#e3e8ef"
+  line-soft: "#eef1f5"
+  control: "#aeb8c6"
+  ink: "#172033"
+  ink-2: "#3d4a5f"
+  muted: "#5b6b82"
+  on-navy: "#ffffff"
+  on-navy-muted: "#aeb9cb"
+  idle: "#e3e8ef"
+  signal: "#e87329"
+  signal-strong: "#9a3412"
+  signal-ink: "#af4d0f"
+  signal-wash: "#fef4ec"
+  signal-wash-hover: "#fce9da"
+  holiday: "#c53340"
+  danger-wash: "#fdecee"
 typography:
+  display:
+    fontFamily: "Pretendard Variable, Pretendard, -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
+    fontSize: "2rem"
+    fontWeight: 700
+    lineHeight: 1.15
+    letterSpacing: "-0.03em"
+    fontFeature: "tnum"
   headline:
-    fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
     fontSize: "1.5rem"
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: "-0.02em"
+    fontFeature: "tnum"
   title:
-    fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
-    fontSize: "1.0625rem"
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
+    fontSize: "1.125rem"
     fontWeight: 700
     lineHeight: 1.3
     letterSpacing: "-0.01em"
+  title-s:
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 700
+    lineHeight: 1.3
   body:
-    fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
     fontSize: "0.9375rem"
     fontWeight: 400
     lineHeight: 1.55
+  body-s:
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.55
   label:
-    fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
     fontSize: "0.8125rem"
     fontWeight: 600
-    lineHeight: 1.45
-  data:
-    fontFamily: "Pretendard Variable, Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 650
-    lineHeight: 1.55
-    fontFeature: "tnum"
+    lineHeight: 1.38
+  micro:
+    fontFamily: "Pretendard Variable, Pretendard, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.6
 rounded:
-  tile: "2px"
-  control: "6px"
-  panel: "8px"
-  pill: "999px"
+  mark: "2px"
+  ctl: "8px"
+  sheet: "12px"
 spacing:
   xs: "4px"
   sm: "8px"
   md: "12px"
   lg: "16px"
-  xl: "20px"
-  2xl: "24px"
+  xl: "24px"
+  section: "28px"
+  gutter: "32px"
+  gutter-tablet: "24px"
+  gutter-phone: "16px"
 components:
   button-primary:
-    backgroundColor: "{colors.pool-blue}"
-    textColor: "{colors.tile}"
-    rounded: "{rounded.control}"
+    backgroundColor: "{colors.navy}"
+    textColor: "{colors.on-navy}"
+    typography: "{typography.body}"
+    rounded: "{rounded.ctl}"
     padding: "0 16px"
-    height: "40px"
+    height: "44px"
   button-primary-hover:
-    backgroundColor: "{colors.pool-blue-deep}"
-    textColor: "{colors.tile}"
+    backgroundColor: "{colors.navy-hover}"
+    textColor: "{colors.on-navy}"
   button-secondary:
-    backgroundColor: "{colors.tile}"
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
+    typography: "{typography.body-s}"
+    rounded: "{rounded.ctl}"
     padding: "0 16px"
-    height: "40px"
+    height: "44px"
+  button-secondary-hover:
+    backgroundColor: "{colors.ground}"
   button-quiet:
     backgroundColor: "transparent"
-    textColor: "{colors.pool-blue}"
-    rounded: "{rounded.control}"
-    padding: "0 8px"
-    height: "40px"
-  input:
-    backgroundColor: "{colors.tile}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
-    padding: "0 12px"
-    height: "42px"
-  chip-busy:
-    backgroundColor: "{colors.rope-amber-wash}"
-    textColor: "{colors.rope-amber-ink}"
-    rounded: "{rounded.pill}"
-    padding: "1px 8px"
-  chip-very-busy:
-    backgroundColor: "{colors.rope-red-wash}"
-    textColor: "{colors.rope-red-ink}"
-    rounded: "{rounded.pill}"
-    padding: "1px 8px"
-  panel:
-    backgroundColor: "{colors.tile}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.panel}"
-    padding: "20px"
-  day-tile:
-    backgroundColor: "{colors.tile}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.tile}"
-    padding: "8px"
-    height: "96px"
-  month-switch-selected:
-    backgroundColor: "{colors.shell-navy}"
-    textColor: "{colors.shell-ink}"
-    rounded: "{rounded.control}"
+    textColor: "{colors.navy}"
+    rounded: "{rounded.ctl}"
+    padding: "0 10px"
     height: "36px"
+  button-quiet-hover:
+    backgroundColor: "{colors.navy-wash}"
+  input:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    rounded: "{rounded.ctl}"
+    padding: "0 12px"
+    height: "44px"
+  segmented-active:
+    backgroundColor: "{colors.navy}"
+    textColor: "{colors.on-navy}"
+    height: "40px"
+  sheet:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.sheet}"
+  shell:
+    backgroundColor: "{colors.navy}"
+    textColor: "{colors.on-navy}"
+    height: "60px"
+  day-cell:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    padding: "10px 12px 11px"
+    height: "114px"
+  day-cell-flag:
+    backgroundColor: "{colors.signal-wash}"
+  day-strip-seg:
+    backgroundColor: "{colors.idle}"
+    rounded: "{rounded.mark}"
+    height: "8px"
+  day-strip-seg-busy:
+    backgroundColor: "{colors.signal}"
+  day-strip-seg-very-busy:
+    backgroundColor: "{colors.signal-strong}"
+  tooltip:
+    backgroundColor: "{colors.navy}"
+    textColor: "{colors.on-navy}"
+    typography: "{typography.label}"
+    rounded: "{rounded.ctl}"
+    padding: "8px 10px"
 ---
 
 # Design System: 올림픽공원 공연 혼잡 캘린더
 
 ## Overview
 
-**Creative North Star: "수영장 강습 시간표 게시판"**
+**Creative North Star: "시청 데이터 지면 (The Civic Data Broadsheet)"**
 
-수강생이 매주 보는 수영장 시간표와 레인의 세계를 빌린 업무용 화면입니다. 화면의 짜임은 흔한 달력과 표 그대로 두고, 세계는 네 가지만 빌려줍니다. 하나의 한글 글꼴(Pretendard)과 고정폭 숫자, 남색 머리띠와 타일 줄눈 격자, 레인 로프의 호박색과 빨강, 그리고 대표 동작 하나입니다. 대표 동작은 날짜 칸을 오후와 저녁 두 레인으로 나누고, 강좌를 고르면 그 수업 시간의 레인이 한 달 내내 파란 테두리로 켜지는 것입니다. 예보 데이터의 구조(날짜와 구간)가 곧 화면의 구조입니다.
+공공 데이터 플랫폼의 정확함과 잘 짜인 편집 지면의 절제를 합친 체계다. 남색 머리띠 아래 서늘한 회색 바탕이 깔리고, 그 위에 흰 작업 판 하나가 놓인다. 판 안은 카드로 쪼개지 않고 1px 선으로만 나뉜다. 모든 정보는 숫자와 시간축으로 말하며, 장식은 없다.
 
-밀도는 시간표 게시판처럼 촘촘하되, 색은 일을 할 때만 씁니다. 공연 때문에 평소보다 붐빌 때만 레인을 칠하고, 평소에도 붐비는 시간은 날짜 상세에서만 말로 알려 줍니다. 사용 장면은 출근 전 휴대폰과 낮의 사무실 PC라서 밝은 화면입니다. 흔한 AI 대시보드(같은 크기 카드 묶음, 큰 숫자 타일, 그라데이션 장식)와 한눈에 들어오지 않는 화면은 피하기로 사용자와 정했습니다.
+이 체계의 중심은 하루 시간축 막대다. 12시부터 23시까지를 실제 비율로 그린 짧은 막대가 오후(5시간)와 저녁(6시간) 두 구간으로 갈리고, 공연 혼잡은 주황으로, 내 수업 시각은 남색 눈금으로 같은 축 위에 찍힌다. 같은 막대가 달력 칸, 날짜 상세 도표, 다가오는 목록, 기관 표의 묶음 줄에 크기만 바꿔 반복된다. 화면이 달라도 읽는 법은 하나다.
+
+색은 뜻을 가진다. 남색은 틀과 주 동작, 선택, 내 수업이고, 주황은 오직 '공연으로 붐빔'이다. 이 둘이 한 칸에서 만나는 순간이 이 제품이 전하려는 단 하나의 사실이다.
 
 **Key Characteristics:**
-- 날짜 칸 하나에 레인 두 줄(위 오후 12~16시, 아래 저녁 17~22시)
-- 색은 상태와 내 강좌에만, 장식에는 쓰지 않음
-- 그림자 없는 평면, 경계는 1px 줄눈
-- 숫자는 모두 고정폭 숫자로 정렬
+- 남색 머리띠, 회색 바탕, 흰 판 하나, 1px 선으로 나뉜 내부
+- 주황은 혼잡 데이터 전용, 동작과 링크는 남색
+- 숫자는 모두 고정폭(tabular-nums), 글꼴은 Pretendard 하나
+- 하루 시간축 막대와 내 수업 눈금이 모든 화면에 같은 문법으로 반복
+- 그림자는 떠 있는 층(콤보박스 목록, 툴팁, 건너뛰기 링크)에만
 
 ## Colors
 
-차가운 흰 바탕 위에 남색 머리띠, 수영장 파랑 하나, 레인 로프 두 색으로 끝나는 절제된 팔레트입니다.
+차가운 남색과 회색 위에 데이터 신호인 주황 하나만 뜨거운, 절제된 공공 지면의 팔레트다.
 
 ### Primary
-- **수영장 파랑** (pool-blue): 내 강좌 레인 테두리, 주 동작 단추(휴대폰 캘린더에 추가, CSV 내려받기), 포커스 링, 링크, 검색어 일치 부분. 화면마다 한두 군데만.
-- **깊은 수영장 파랑** (pool-blue-deep): 주 단추와 링크의 누름 직전(hover) 상태, 내 수업 글자.
-- **물빛** (pool-wash): 선택 후보 강조, 내 수업 안내 상자 바탕, 텍스트 선택 색.
+- **밤 남색 (Civic Night Navy)** (`navy`): 머리띠 바탕, 주 단추, 선택된 달 단추, 선택된 날의 안쪽 테두리와 숫자 배지, 오늘의 원 테두리, 내 수업 눈금, 링크, 포커스 링, 툴팁 바탕. 이 화면에서 '틀'과 '나'를 뜻하는 색이다.
+- **밤 남색 눌림 (Navy Hover)** (`navy-hover`): 주 단추와 링크의 hover.
+- **남색 물빛 (Navy Wash)** (`navy-wash`): 조용한 단추 hover, 콤보박스 선택 항목, 다가오는 목록의 현재 날짜 줄, 내 수업 안내 상자 바탕.
 
 ### Secondary
-- **레인 로프 호박색** (rope-amber): 공연으로 붐빔. 레인, 수준 표의 견본, 막대에만.
-- **레인 로프 빨강** (rope-red): 공연으로 매우 붐빔. 호박색과 색각 이상 검사(ΔE 16 이상)를 통과한 쌍입니다.
-- 두 색의 옅은 바탕과 짙은 글자(rope-*-wash, rope-*-ink)는 수준 표(chip) 안에서만 씁니다.
+- **공연 주황 (Concert Signal Orange)** (`signal`): '공연으로 붐빔' 구간 막대, 근거 화면 막대 차트, 수준 견본.
+- **매우 붐빔 적갈 (Deep Rust)** (`signal-strong`): '매우 붐빔' 구간. 같은 색상의 명도 단계로, 색상을 바꾸지 않는다.
+- **주황 글자 (Signal Ink)** (`signal-ink`): 혼잡 수준을 글자로 쓸 때. 흰 판과 주황 물빛 위에서 4.5:1을 넘기기 위해 `signal`보다 어둡게 잡았다.
+- **주황 물빛 (Signal Wash)** (`signal-wash`, hover `signal-wash-hover`): 혼잡한 날 달력 칸 전체 바탕.
+
+### Tertiary
+- **휴일 적색 (Holiday Red)** (`holiday`): 일요일과 공휴일 날짜 숫자, 요일 머리의 '일', 공휴일 이름. 다른 용도로 쓰지 않는다.
 
 ### Neutral
-- **게시판 남색** (shell-navy): 상단 머리띠, 고른 달 단추, 선택한 날짜 칸 테두리, 툴팁 바탕.
-- **바탕** (ground)과 **타일** (tile): 쪽 바탕과 판, 날짜 칸.
-- **줄눈** (grout): 달력 격자 1px 간격, 판 테두리, 표의 가로줄.
-- **빈 레인** (lane-idle): 칠하지 않은 레인.
-- **잉크 네 단계** (ink, ink-secondary, ink-muted, ink-faint): 본문, 보조 글, 설명, 자리 표시 글과 비활성 날짜.
+- **바탕 회색 (Ground)** (`ground`): 페이지 바탕, 달력 앞뒤 빈 칸, 지난 날, 표 머리, 보조 단추 hover.
+- **흰 판 (Surface)** (`surface`): 작업 판 하나와 입력, 보조 단추, 날짜 칸.
+- **선 (Line)** (`line`): 판 테두리, 단과 구획 사이, 달력 가로선, 표 머리 밑줄.
+- **옅은 선 (Line Soft)** (`line-soft`): 달력 세로선, 목록과 표의 줄 사이.
+- **조작 테두리 (Control)** (`control`): 입력, 보조 단추, 달 분할 단추의 테두리.
+- **잉크 (Ink)** (`ink`), **둘째 잉크 (Ink 2)** (`ink-2`), **흐린 글자 (Muted)** (`muted`): 본문, 보조 문장, 설명과 각주. 흐린 글자는 바탕 회색 위 4.5:1을 위해 방향 계약의 #64748b보다 어둡게 확정했다.
+- **빈 구간 (Idle)** (`idle`): 붐비지 않는 시간 구간 막대.
+- **남색 위 글자** (`on-navy`, `on-navy-muted`): 머리띠와 툴팁 안의 글자, 비활성 탭.
+- **오류 물빛** (`danger-wash`): 오류 상자 바탕.
 
 ### Named Rules
-**The Earned Color Rule.** 레인과 막대는 공연 때문에 평소보다 붐빌 때만 칠합니다. 원래 붐비는 시간에 색을 쓰면 달력이 매일 칠해져 아무것도 알려 주지 못합니다.
+**The 주황은 데이터 Rule.** 주황 계열(`signal`, `signal-strong`, `signal-ink`, `signal-wash`)은 '공연으로 붐빔'이라는 뜻에만 쓴다. 단추, 링크, 포커스, 선택, 강조 장식에는 절대 쓰지 않는다. 주황이 보이면 그곳은 붐빈다.
 
-**The One Blue Rule.** 수영장 파랑은 '나'와 '주 동작'의 색입니다. 데이터 계열이나 장식에 쓰지 않습니다.
+**The 남색은 나 Rule.** 내 수업과 내 선택(선택한 날, 선택한 달, 내 수업 라벨과 눈금)은 남색으로만 그린다. 그래서 '주황 위의 남색 눈금'이 곧 '겹침'으로 읽힌다.
+
+**The 휴일 숫자 Rule.** 휴일 적색은 날짜 숫자와 공휴일 이름에만 쓴다. 칸 바탕이나 막대에 번지지 않는다.
 
 ## Typography
 
-**Body Font:** Pretendard Variable (Apple SD Gothic Neo, Malgun Gothic 대체). 저장소의 `site/fonts/`에서 직접 제공하고 유니코드 범위별로 나눠 필요한 글자만 내려받습니다.
+**Display Font:** Pretendard Variable (Pretendard, Apple SD Gothic Neo, Malgun Gothic, system-ui 대체)
+**Body Font:** 같은 Pretendard Variable
 
-**Character:** 한 가족으로 제목, 본문, 표, 숫자를 모두 처리하는 업무용 글꼴입니다. 개성은 글꼴이 아니라 시간표 같은 숫자 정렬에서 나옵니다.
+**Character:** 한 글꼴의 무게와 크기만으로 위계를 만든다. 큰 제목은 자간을 당긴 굵은 숫자로 지면 같은 무게를 갖고, 나머지는 단정한 공공 문서체로 물러선다.
 
 ### Hierarchy
-- **Headline** (700, 1.5rem, 1.3): 쪽 제목. 모바일 1.3125rem.
-- **Title** (700, 1.0625rem~1.25rem, 1.3): 판 제목, 달 이름(1.25rem).
-- **Body** (400, 0.9375rem, 1.55): 설명과 상세. 설명 문단은 68ch 안쪽.
-- **Label** (600, 0.8125rem): 입력 이름, 범례, 표 머리.
-- **Data** (650, 0.875rem, 고정폭 숫자): 날짜 숫자, 시각, 대수, 회차.
+- **Display** (700, 2rem, 1.15, -0.03em): 페이지 제목과 달 제목('2026년 11월'). 휴대폰에서 1.5rem.
+- **Headline** (700, 1.5rem, 1.3, -0.02em): 날짜 상세의 날짜 제목.
+- **Title** (700, 1.125rem, -0.01em): 구획 제목(다가오는 공연 혼잡, 표 제목, 근거 절 제목).
+- **Title S** (650~700, 1rem): 오른쪽 단 머리, 머리띠 브랜드, 날짜 칸 숫자.
+- **Body** (400, 0.9375rem, 1.55): 본문, 요약문, 주 단추 글자. 설명 문단은 68~72ch를 넘지 않는다.
+- **Body S** (400~650, 0.875rem): 표, 목록, 보조 단추, 수치 줄.
+- **Label** (600, 0.8125rem): 필드 이름, 요일, 범례, 칸 안 공연명과 내 수업 시각.
+- **Micro** (500~600, 0.75rem): 축 눈금 시각, 공휴일 이름, 각주, 작은 이름표.
 
 ### Named Rules
-**The Timetable Numerals Rule.** 줄을 맞춰 읽는 숫자(날짜, 시각, 표의 수)는 고정폭 숫자로, 문장 속 큰 숫자는 기본 숫자로 씁니다.
+**The 고정폭 숫자 Rule.** 날짜, 시각, 횟수, 비율처럼 비교되는 숫자는 모두 `font-variant-numeric: tabular-nums`로 쓴다. 열이 흔들리면 데이터 지면이 아니다.
+
+**The 무게로 위계 Rule.** 위계는 크기 8단계(32/24/18/16/15/14/13/12)와 무게(400/500/600/650/700)로만 만든다. 대문자 변환, 넓은 자간, 색 강조로 위계를 만들지 않는다.
 
 ## Layout
 
-최대 너비 1280px, 좌우 여백 24px(모바일 16px). 수강생 화면은 데스크톱에서 두 단입니다. 왼쪽 340px 단에 내 강좌와 날짜 상세, 오른쪽 단에 달력과 다가오는 공연 혼잡 목록이 있습니다. 1023px 이하에서는 한 단으로 바뀌고 순서는 내 강좌, 달력, 날짜 상세, 다가오는 목록입니다. 판 사이 간격은 16~20px, 판 안 여백 20px(모바일 16px). 달력은 7열 격자이고 칸 높이는 96px(모바일 64px)입니다. 모바일 칸에서는 공연명을 숨기고 숫자와 레인만 남깁니다. 기관 화면은 조건 판, 묶음 표, 운영 방법이 위에서 아래로 쌓이고, 근거 화면은 데스크톱 두 단에서 검증과 한계만 전체 폭을 씁니다.
+페이지는 남색 머리띠(높이 60px) 아래 바탕 회색 위에 흰 판 하나를 놓고, 좌우 여백(`gutter`)을 데스크톱 32px, 태블릿 24px, 휴대폰 16px로 줄인다. 판 안 구획은 24~28px 안쪽 여백과 1px 선으로 나누며, 구획 사이 큰 간격은 40px까지만 쓴다.
+
+수강생 화면은 판을 달력 단(가변)과 오른쪽 단 두 칸으로 나눈다. 1280px 이상에서 오른쪽 단 400px, 1024~1279px에서 360px로 줄고 날짜 칸 안쪽 여백이 8px로 줄며 공연명은 한 줄, 내 수업은 짧은 눈금 견본으로 바뀐다. 1023px 이하에서는 한 단으로 풀어 강좌 찾기, 달력, 내 강좌 요약과 .ics, 날짜 상세, 다가오는 목록 순으로 세운다. 640px 이하 휴대폰에서는 날짜 칸을 66px 높이로 줄이고 숫자와 시간축 막대만 남기며, 모든 누를 곳을 44px 이상으로 키운다.
+
+달력은 7열 격자로, 칸 높이 114px에 다섯 주가 1440x900 첫 화면 안에 들어간다. 다가오는 목록과 기관 표는 같은 고정 열 폭 격자를 쓰고, 좁아지면 열을 줄 단위로 접는다. 한국어 줄바꿈은 `word-break: keep-all`.
 
 ## Elevation & Depth
 
-평면입니다. 판과 칸은 그림자 없이 1px 줄눈과 바탕색 차이로 나뉩니다. 그림자는 툴팁 하나에만 있습니다(0 4px 12px, 남색 18%).
+평면 체계다. 깊이는 바탕 회색과 흰 판의 명도 차, 그리고 1px 선으로만 만든다. 그림자는 문서 흐름 위에 실제로 떠 있는 층 셋(콤보박스 결과 목록, 근거 차트 툴팁, 건너뛰기 링크)에만 쓰는 단 하나의 값이다.
+
+### Shadow Vocabulary
+- **떠 있는 층 (Pop)** (`box-shadow: 0 12px 28px -12px rgba(17, 29, 50, .28), 0 1px 3px rgba(17, 29, 50, .08)`): 콤보박스 결과 목록, 툴팁, 건너뛰기 링크. 판, 칸, 단추, 상자에는 쓰지 않는다.
 
 ### Named Rules
-**The Grout Not Shadow Rule.** 구분은 줄눈(1px 선)과 바탕 단계로 합니다. 판에 그림자를 넣지 않습니다.
+**The 한 장의 판 Rule.** 흰 판은 화면마다 하나다. 판 안을 카드로 다시 쪼개거나 그림자로 띄우지 않고, 선과 여백으로만 나눈다.
 
 ## Shapes
 
-모서리는 쓰임에 따라 세 단계입니다. 타일과 레인은 거의 각진 2px, 단추와 입력은 6px, 판은 8px. 수준 표만 알약 모양입니다. 달력은 1px 간격의 격자로 줄눈을 그리고, 바깥만 6px로 둥글립니다.
+모서리는 세 단계뿐이다. 데이터 표지(막대 구간, 견본)는 2px로 거의 각지게, 조작부(단추, 입력, 달 분할, 알림 상자, 툴팁)는 8px, 작업 판은 12px. 막대가 커지는 날짜 상세 도표(20px 높이)에서만 구간 모서리가 4px로 비례해 커진다. 수준 견본은 알약이 아니라 12x6px 작은 사각 견본에 글자를 붙인다. 원은 오늘 표시와 근거 화면의 점 그림 표지에만 쓴다.
 
 ## Components
 
 ### Buttons
-- **Shape:** 6px 모서리, 높이 40px.
-- **Primary:** 수영장 파랑 바탕에 흰 글자, 아이콘은 선 굵기 1.75의 직접 그린 SVG.
-- **Hover / Focus:** hover는 깊은 수영장 파랑, 포커스는 2px 파랑 외곽선과 2px 간격. 전환 0.15초.
-- **Secondary / Quiet:** 흰 바탕에 #cbd5e1 테두리, 또는 테두리 없는 파랑 글자 단추(보조 동작).
+공공 서식처럼 단정하고 분명하다.
+- **Shape:** 8px 모서리, 최소 높이 44px.
+- **Primary:** 남색 바탕, 흰 글자, 0.9375rem 650. 화면마다 주 동작 하나(.ics 받기, CSV 받기, 조회).
+- **Secondary:** 흰 바탕, 조작 테두리, 잉크 글자, 0.875rem 650. hover 시 바탕 회색.
+- **Quiet:** 테두리 없는 남색 글자, 높이 36px(휴대폰 44px). hover 시 남색 물빛.
+- **Hover / Focus:** 배경과 테두리 색만 0.15초 바뀐다. 포커스는 남색 2px 외곽선, 남색 바탕 위에서는 흰 외곽선.
 
-### Chips
-- **Style:** 알약 모양, 0.75rem 굵은 글자, 앞에 10x4px 레인 견본. 보통은 회색, 붐빔은 호박색, 매우 붐빔은 빨강.
-- **Tag:** 4px 모서리의 작은 이름표(공연 영향, 토요일 선택, 내 수업).
+### Segmented Month Switcher
+- 조작 테두리로 묶인 한 줄 단추 묶음, 안쪽 구분선은 `line`. 눌린 달은 남색 바탕 흰 글자. 휴대폰에서 폭 100% 균등 분할.
+
+### Level Chip and Tag
+- **수준 글자:** 알약 없이 12x6px 견본 + 0.8125rem 650 글자. 붐빔은 주황 견본, 매우 붐빔은 적갈 견본, 글자는 `signal-ink`.
+- **이름표:** 1px 선 테두리, 4px 모서리, 0.75rem 600 글자의 작은 흰 표지.
 
 ### Cards / Containers
-- **Corner Style:** 8px.
-- **Background:** 흰색 타일, 바탕은 #f8fafc.
-- **Shadow Strategy:** 없음.
-- **Border:** 1px 줄눈.
-- **Internal Padding:** 20px(모바일 16px). 판 안에 판을 넣지 않고, 구역은 1px 가로줄로 나눕니다.
+- **Corner Style:** 판 12px.
+- **Background:** 흰 판 하나, 바깥은 바탕 회색.
+- **Shadow Strategy:** 없음(Elevation 참조).
+- **Border:** 1px `line`.
+- **Internal Padding:** 구획마다 24~28px, 휴대폰 16~20px.
 
 ### Inputs / Fields
-- **Style:** 흰 바탕, 1px #cbd5e1 테두리, 6px 모서리, 높이 42px, 검색 아이콘은 왼쪽 안쪽.
-- **Focus:** 테두리와 2px 외곽선이 수영장 파랑으로.
-- **Combobox:** 결과는 입력 아래에 펼쳐지는 목록(위아래 화살표, Enter, Esc), 일치 부분은 깊은 파랑 굵은 글자. 결과가 없으면 무엇을 바꾸면 되는지 문장으로 알립니다.
+- **Style:** 흰 바탕, 1px 조작 테두리, 8px 모서리, 높이 44px, 필드 이름은 0.8125rem 600 `ink-2`로 입력 위에.
+- **Hover:** 테두리가 흐린 글자 색으로.
+- **Focus:** 남색 2px 외곽선(간격 0)과 남색 테두리.
+- **Combobox:** 왼쪽 돋보기, 오른쪽 지우기 단추, 결과 목록은 떠 있는 층 그림자와 4px 안쪽 여백, 일치한 글자는 밑줄 친 굵은 남색.
+- **Error:** 오류 물빛 상자에 짙은 적색 글자.
 
 ### Navigation
-- 남색 머리띠 오른쪽의 글자 탭. 기본 #cbd5e1, hover 흰색, 현재 화면은 흰 굵은 글자와 아래 3px 하늘색 막대. 모바일에서는 서비스 이름 아래 한 줄로 내려오고 가로로 밀립니다.
+- 남색 머리띠 60px 안에 브랜드, 세 탭, 오른쪽 예보 기간. 탭은 `on-navy-muted` 글자, 현재 탭은 흰 글자 650과 바닥 2px 흰 밑줄. 휴대폰에서는 브랜드 아래 44px 높이의 가로 스크롤 탭 줄.
 
-### Day Tile (signature)
-- 흰 칸, 위에 날짜 숫자(일요일과 공휴일은 #b91c1c), 아래 8px 레인 두 줄(위 오후, 아래 저녁), 맨 아래 한 줄 메모(공연 짧은 이름, 공휴일 이름, 또는 '내 수업 19:00').
-- 공연 혼잡 레인은 호박색 또는 빨강. 내 강좌가 있는 날의 해당 레인은 2px 파랑 외곽선(토요일 선택 수업은 점선).
-- 고른 날은 안쪽 2px 남색 테두리, 예보 기간 밖의 날은 바탕색으로 비활성.
+### 하루 시간축 막대 (Signature)
+이 체계의 서명이다. 12~23시 실제 시간축 위에 오후(5시간, 폭 45.45%)와 저녁(6시간) 두 구간을 2px 간격으로 놓는다.
+- **구간:** 빈 구간 `idle`, 붐빔 `signal`, 매우 붐빔 `signal-strong`. 달력 칸에서 높이 8px(휴대폰 7px), 범례 52px 폭, 기관 묶음 줄 72px 폭, 날짜 상세 도표 20px 높이에 축 시각 라벨.
+- **내 수업 눈금:** 수업 시각 위치에 남색 세로 눈금. 수업만 있는 날은 옅게(불투명도 0.42, 폭 3px), 혼잡 구간과 겹치는 날은 진하게(불투명도 1, 폭 5px, 막대 위아래로 5px 넘침)와 흰 1.5px 테두리. 토요일 선택 수업은 속이 빈 눈금.
+- **동작:** 사용자가 강좌를 고르는 순간에만 눈금이 날짜 순서로 찍혀 들어온다(날짜당 16ms 지연, 0.5초, `cubic-bezier(.16, 1, .3, 1)`, 세로 0.2배에서 펼침). 줄임 동작 설정에서는 꺼진다.
+
+### Calendar Day Cell
+- 흰 칸, 위에 날짜 숫자(1rem 650 고정폭), 그 아래 공연명 한두 줄, 바닥에 내 수업 시각과 시간축 막대. 혼잡한 날은 칸 전체 `signal-wash`.
+- **선택된 날:** 칸 안쪽 2px 남색 테두리 + 숫자를 남색 채운 배지(6px 모서리)로. 포커스 링과 구별되기 위해 둘 다 필요하다.
+- **오늘:** 숫자를 남색 1.5px 테두리의 원으로.
+- **지난 날, 앞뒤 빈 칸:** 바탕 회색, 흐린 숫자.
+
+### Data Table (기관)
+- 0.875rem 표, 머리는 바탕 회색 위 0.8125rem 650으로 상단에 고정, 줄 사이 옅은 선, 숫자 열 오른쪽 정렬 고정폭. 묶음 줄은 흰 바탕에 굵은 시간대 제목과 시간축 막대(72px), 블록 정보를 한 줄로.
+
+### Evidence Charts (근거)
+- 가로 막대는 주황 16px, 오른쪽 끝만 3px 둥글게, hover 시 적갈. 비교 점 그림은 기준(속 빈 흐린 원)과 우리 예보(남색 점). 툴팁은 남색 바탕 흰 글자에 떠 있는 층 그림자.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** 새 화면도 날짜와 구간을 레인 두 줄로 보여 주는 문법을 그대로 씁니다.
-- **Do** 수준은 색과 글자를 함께 씁니다(수준 표의 '붐빔', 칸의 접근성 이름). 색만으로 알리지 않습니다.
-- **Do** 숫자 열은 오른쪽 정렬과 고정폭 숫자로 맞춥니다.
-- **Do** 차트는 한 계열이면 수영장 파랑 하나, 비교는 채운 점(이 서비스)과 빈 점(평소 패턴)처럼 모양으로 구분합니다.
+- **Do** 공연 혼잡을 표시할 때는 언제나 12~23시 시간축 막대의 오후/저녁 두 구간으로 그린다. 새 화면도 같은 막대를 크기만 바꿔 쓴다.
+- **Do** 내 수업과 겹치는 날은 주황 구간 위 진한 남색 눈금(흰 테두리)으로, 겹치지 않는 수업일은 옅은 눈금으로 구분한다.
+- **Do** 판 안 구획은 1px `line`과 `line-soft`로만 나누고 흰 판은 한 장으로 둔다.
+- **Do** 비교되는 숫자는 모두 고정폭 숫자로 쓴다.
+- **Do** 누를 곳은 휴대폰에서 44px 이상, 포커스는 남색 2px 외곽선으로 보이게 한다.
+- **Do** 수준은 작은 사각 견본과 글자로 쓴다.
 
 ### Don't:
-- **Don't** 판에 그림자, 그라데이션, 유리 효과를 넣지 않습니다.
-- **Don't** 같은 크기 카드에 큰 숫자를 얹은 대시보드 타일을 만들지 않습니다. 요약 수치는 문장 속 굵은 숫자로 씁니다.
-- **Don't** 제목 위에 작은 머리말 라벨을 달지 않고, 메타 정보를 가운뎃점으로 잇지 않습니다.
-- **Don't** 레인 로프 두 색을 상태 말고 다른 데이터 계열에 쓰지 않습니다.
-- **Don't** 이모지나 글자 기호를 아이콘 대신 쓰지 않습니다.
+- **Don't** 주황 계열을 단추, 링크, 선택, 포커스, 장식 강조에 쓴다.
+- **Don't** 날짜 아래 점, 알약 배지, 카드 위젯 묶음 같은 흔한 SaaS 달력 문법으로 혼잡을 표시한다.
+- **Don't** 판이나 칸, 단추에 그림자를 준다. 그림자는 떠 있는 층에만.
+- **Don't** 그라데이션을 쓴다.
+- **Don't** 제목 위 눈썹 라벨이나 대문자 소제목을 단다.
+- **Don't** 두 번째 글꼴을 들인다.
+- **Don't** 휴일 적색을 날짜 숫자와 공휴일 이름 밖에서 쓴다.

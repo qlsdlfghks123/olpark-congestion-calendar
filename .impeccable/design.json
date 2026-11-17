@@ -1,495 +1,574 @@
 {
- "schemaVersion": 2,
- "generatedAt": "2026-11-17T02:46:15+00:00",
- "title": "Design System: 올림픽공원 공연 혼잡 캘린더",
- "extensions": {
-  "colorMeta": {
-   "shell-navy": {
-    "role": "neutral",
-    "displayName": "게시판 남색",
-    "canonical": "#0f172a",
-    "tonalRamp": [
-     "#04060a",
-     "#070a13",
-     "#0a0f1b",
-     "#0d1424",
-     "#3f4555",
-     "#7b7f8a",
-     "#b7b9bf",
-     "#e2e3e5"
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T00:00:00+09:00",
+  "title": "Design System: 올림픽공원 공연 혼잡 캘린더",
+  "extensions": {
+    "colorMeta": {
+      "navy": {
+        "role": "primary",
+        "displayName": "밤 남색",
+        "canonical": "#111d32",
+        "oklch": "oklch(23.1% 0.044 261.0)",
+        "tonalRamp": [
+          "#080b10",
+          "#1f2530",
+          "#394253",
+          "#556278",
+          "#75839b",
+          "#9aa6b9",
+          "#c1cad7",
+          "#eaeff7"
+        ]
+      },
+      "navy-hover": {
+        "role": "primary",
+        "displayName": "밤 남색 눌림",
+        "canonical": "#22314d",
+        "oklch": "oklch(31.4% 0.054 262.2)",
+        "tonalRamp": [
+          "#080b12",
+          "#1e2532",
+          "#374256",
+          "#52627d",
+          "#7383a0",
+          "#98a6bd",
+          "#c0cadb",
+          "#e9eff9"
+        ]
+      },
+      "navy-wash": {
+        "role": "primary",
+        "displayName": "남색 물빛",
+        "canonical": "#edf0f5",
+        "oklch": "oklch(95.4% 0.007 260.7)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a8",
+          "#c8c9cb",
+          "#eeeef0"
+        ]
+      },
+      "signal": {
+        "role": "secondary",
+        "displayName": "공연 주황",
+        "canonical": "#e87329",
+        "oklch": "oklch(68.2% 0.166 48.3)",
+        "tonalRamp": [
+          "#190500",
+          "#421500",
+          "#702900",
+          "#a13e00",
+          "#c76120",
+          "#df8e63",
+          "#f5ba9c",
+          "#ffe6d5"
+        ]
+      },
+      "signal-strong": {
+        "role": "secondary",
+        "displayName": "매우 붐빔 적갈",
+        "canonical": "#9a3412",
+        "oklch": "oklch(47.0% 0.143 37.3)",
+        "tonalRamp": [
+          "#180502",
+          "#40160a",
+          "#6c2b17",
+          "#9c4126",
+          "#c26347",
+          "#db8f78",
+          "#f2baaa",
+          "#ffe6dc"
+        ]
+      },
+      "signal-ink": {
+        "role": "secondary",
+        "displayName": "주황 글자",
+        "canonical": "#af4d0f",
+        "oklch": "oklch(53.9% 0.144 46.3)",
+        "tonalRamp": [
+          "#180500",
+          "#3f1803",
+          "#6b2d08",
+          "#9a4410",
+          "#c06639",
+          "#d9916f",
+          "#f0bca3",
+          "#ffe7d9"
+        ]
+      },
+      "signal-wash": {
+        "role": "secondary",
+        "displayName": "주황 물빛",
+        "canonical": "#fef4ec",
+        "oklch": "oklch(97.3% 0.015 61.3)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#282422",
+          "#46413c",
+          "#67605a",
+          "#89817a",
+          "#aaa49f",
+          "#cdc8c4",
+          "#f1eeec"
+        ]
+      },
+      "signal-wash-hover": {
+        "role": "secondary",
+        "displayName": "주황 물빛 눌림",
+        "canonical": "#fce9da",
+        "oklch": "oklch(94.5% 0.029 60.8)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#2a241e",
+          "#4a4037",
+          "#6d5e53",
+          "#8e7f73",
+          "#afa299",
+          "#d0c7c0",
+          "#f3ede9"
+        ]
+      },
+      "holiday": {
+        "role": "tertiary",
+        "displayName": "휴일 적색",
+        "canonical": "#c53340",
+        "oklch": "oklch(54.9% 0.182 21.0)",
+        "tonalRamp": [
+          "#1c0203",
+          "#470c11",
+          "#761b23",
+          "#aa2b36",
+          "#d25156",
+          "#e98383",
+          "#fdb3b1",
+          "#ffe2e0"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "바탕 회색",
+        "canonical": "#f7f8fa",
+        "oklch": "oklch(97.9% 0.003 264.5)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a6",
+          "#c9c9ca",
+          "#eeeeef"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "흰 판",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "선",
+        "canonical": "#e3e8ef",
+        "oklch": "oklch(92.9% 0.011 256.7)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232528",
+          "#3f4246",
+          "#5e6267",
+          "#7f8388",
+          "#a2a5aa",
+          "#c7c9cc",
+          "#edeef0"
+        ]
+      },
+      "line-soft": {
+        "role": "neutral",
+        "displayName": "옅은 선",
+        "canonical": "#eef1f5",
+        "oklch": "oklch(95.7% 0.006 255.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#404244",
+          "#5f6164",
+          "#808286",
+          "#a3a5a8",
+          "#c8c9cb",
+          "#eeeeef"
+        ]
+      },
+      "control": {
+        "role": "neutral",
+        "displayName": "조작 테두리",
+        "canonical": "#aeb8c6",
+        "oklch": "oklch(77.9% 0.023 256.7)",
+        "tonalRamp": [
+          "#090b0e",
+          "#22252a",
+          "#3d424a",
+          "#5a626d",
+          "#7b838f",
+          "#9fa6af",
+          "#c5cad0",
+          "#eceff3"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "잉크",
+        "canonical": "#172033",
+        "oklch": "oklch(24.5% 0.039 264.4)",
+        "tonalRamp": [
+          "#090b10",
+          "#20252e",
+          "#3b4251",
+          "#576176",
+          "#788398",
+          "#9da5b6",
+          "#c3c9d6",
+          "#ebeff6"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "둘째 잉크",
+        "canonical": "#3d4a5f",
+        "oklch": "oklch(40.7% 0.039 259.9)",
+        "tonalRamp": [
+          "#090b10",
+          "#20252e",
+          "#3a4251",
+          "#566276",
+          "#768398",
+          "#9ba6b6",
+          "#c2cad6",
+          "#eaeff6"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "흐린 글자",
+        "canonical": "#5b6b82",
+        "oklch": "oklch(52.3% 0.041 257.4)",
+        "tonalRamp": [
+          "#080b10",
+          "#1f252f",
+          "#394351",
+          "#546277",
+          "#758399",
+          "#9aa6b7",
+          "#c1cad6",
+          "#eaeff6"
+        ]
+      },
+      "on-navy": {
+        "role": "neutral",
+        "displayName": "남색 위 글자",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "on-navy-muted": {
+        "role": "neutral",
+        "displayName": "남색 위 흐린 글자",
+        "canonical": "#aeb9cb",
+        "oklch": "oklch(78.3% 0.028 260.3)",
+        "tonalRamp": [
+          "#090b0e",
+          "#21252c",
+          "#3c424d",
+          "#596270",
+          "#7a8392",
+          "#9ea5b2",
+          "#c4c9d2",
+          "#ebeff4"
+        ]
+      },
+      "idle": {
+        "role": "neutral",
+        "displayName": "빈 구간",
+        "canonical": "#e3e8ef",
+        "oklch": "oklch(92.9% 0.011 256.7)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232528",
+          "#3f4246",
+          "#5e6267",
+          "#7f8388",
+          "#a2a5aa",
+          "#c7c9cc",
+          "#edeef0"
+        ]
+      },
+      "danger-wash": {
+        "role": "neutral",
+        "displayName": "오류 물빛",
+        "canonical": "#fdecee",
+        "oklch": "oklch(95.7% 0.019 9.3)",
+        "tonalRamp": [
+          "#0d0a0b",
+          "#292324",
+          "#483f40",
+          "#6a5d5f",
+          "#8c7e80",
+          "#ada2a3",
+          "#cfc7c8",
+          "#f2edee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "페이지 제목과 달 제목. 휴대폰 1.5rem."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "날짜 상세의 날짜 제목."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "구획 제목(다가오는 목록, 표, 근거 절)."
+      },
+      "title-s": {
+        "displayName": "Title S",
+        "purpose": "오른쪽 단 머리, 브랜드, 날짜 칸 숫자."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "본문, 요약문, 주 단추. 68~72ch 이하."
+      },
+      "body-s": {
+        "displayName": "Body S",
+        "purpose": "표, 목록, 보조 단추, 수치 줄."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "필드 이름, 요일, 범례, 칸 안 공연명과 수업 시각."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "축 시각, 공휴일 이름, 각주, 이름표."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pop",
+        "value": "0 12px 28px -12px rgba(17, 29, 50, .28), 0 1px 3px rgba(17, 29, 50, .08)",
+        "purpose": "떠 있는 층(콤보박스 결과 목록, 툴팁, 건너뛰기 링크)에만."
+      }
+    ],
+    "focus": [
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #111d32; outline-offset: 2px",
+        "purpose": "모든 포커스. 남색 바탕 위에서는 흰색, 날짜 칸은 안쪽 -5px."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "모든 상태 전환과 눈금 찍힘의 지수형 감속."
+      },
+      {
+        "name": "state-transition",
+        "value": "background-color .15s, border-color .15s",
+        "purpose": "hover의 배경과 테두리 변화만."
+      },
+      {
+        "name": "tick-stamp",
+        "value": "stamp .5s var(--ease) both; delay = 날짜 x 16ms; from { opacity: 0; transform: scaleY(.2) }",
+        "purpose": "사용자가 강좌를 고른 순간에만 내 수업 눈금이 날짜 순서로 찍힌다. prefers-reduced-motion에서 꺼짐."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "desktop",
+        "value": "1280px",
+        "note": "오른쪽 단 400px"
+      },
+      {
+        "name": "compact",
+        "value": "1024px-1279px",
+        "note": "오른쪽 단 360px, 날짜 칸 압축"
+      },
+      {
+        "name": "tablet",
+        "value": "max-width: 1023px",
+        "note": "한 단, 여백 24px"
+      },
+      {
+        "name": "phone",
+        "value": "max-width: 640px",
+        "note": "날짜 칸 66px에 숫자와 막대만, 누를 곳 44px, 여백 16px"
+      }
     ]
-   },
-   "shell-ink": {
-    "role": "neutral",
-    "displayName": "머리띠 글자",
-    "canonical": "#f8fafc",
-    "tonalRamp": [
-     "#3e3e3f",
-     "#707071",
-     "#a1a2a4",
-     "#d3d4d6",
-     "#f9fbfd",
-     "#fbfcfd",
-     "#fdfefe",
-     "#fefeff"
-    ]
-   },
-   "shell-muted": {
-    "role": "neutral",
-    "displayName": "머리띠 보조 글자",
-    "canonical": "#cbd5e1",
-    "tonalRamp": [
-     "#333538",
-     "#5b6065",
-     "#848a92",
-     "#adb5bf",
-     "#d5dde7",
-     "#e2e8ee",
-     "#eff2f6",
-     "#f9fafb"
-    ]
-   },
-   "shell-mark": {
-    "role": "neutral",
-    "displayName": "현재 탭 막대",
-    "canonical": "#38bdf8",
-    "tonalRamp": [
-     "#0e2f3e",
-     "#195570",
-     "#247ba1",
-     "#30a1d3",
-     "#60caf9",
-     "#92dbfb",
-     "#c3ebfd",
-     "#e7f7fe"
-    ]
-   },
-   "pool-blue": {
-    "role": "primary",
-    "displayName": "수영장 파랑",
-    "canonical": "#0369a1",
-    "tonalRamp": [
-     "#011a28",
-     "#012f48",
-     "#024469",
-     "#035989",
-     "#3587b4",
-     "#74accb",
-     "#b3d2e3",
-     "#e1edf4"
-    ]
-   },
-   "pool-blue-deep": {
-    "role": "primary",
-    "displayName": "깊은 수영장 파랑",
-    "canonical": "#075985",
-    "tonalRamp": [
-     "#021621",
-     "#03283c",
-     "#053a56",
-     "#064c71",
-     "#397a9d",
-     "#77a4bc",
-     "#b5cdda",
-     "#e1ebf0"
-    ]
-   },
-   "pool-wash": {
-    "role": "primary",
-    "displayName": "물빛",
-    "canonical": "#e0f2fe",
-    "tonalRamp": [
-     "#383c40",
-     "#656d72",
-     "#929da5",
-     "#beced8",
-     "#e6f5fe",
-     "#eef8fe",
-     "#f6fbff",
-     "#fbfdff"
-    ]
-   },
-   "ground": {
-    "role": "neutral",
-    "displayName": "바탕",
-    "canonical": "#f8fafc",
-    "tonalRamp": [
-     "#3e3e3f",
-     "#707071",
-     "#a1a2a4",
-     "#d3d4d6",
-     "#f9fbfd",
-     "#fbfcfd",
-     "#fdfefe",
-     "#fefeff"
-    ]
-   },
-   "tile": {
-    "role": "neutral",
-    "displayName": "타일",
-    "canonical": "#ffffff",
-    "tonalRamp": [
-     "#404040",
-     "#737373",
-     "#a6a6a6",
-     "#d9d9d9",
-     "#ffffff",
-     "#ffffff",
-     "#ffffff",
-     "#ffffff"
-    ]
-   },
-   "tile-hover": {
-    "role": "neutral",
-    "displayName": "타일 hover",
-    "canonical": "#f1f5f9",
-    "tonalRamp": [
-     "#3c3d3e",
-     "#6c6e70",
-     "#9d9fa2",
-     "#cdd0d4",
-     "#f4f7fa",
-     "#f7fafc",
-     "#fbfcfd",
-     "#fdfefe"
-    ]
-   },
-   "grout": {
-    "role": "neutral",
-    "displayName": "줄눈",
-    "canonical": "#e2e8f0",
-    "tonalRamp": [
-     "#383a3c",
-     "#66686c",
-     "#93979c",
-     "#c0c5cc",
-     "#e8edf3",
-     "#eff2f7",
-     "#f6f8fa",
-     "#fcfcfd"
-    ]
-   },
-   "edge": {
-    "role": "neutral",
-    "displayName": "컨트롤 테두리",
-    "canonical": "#cbd5e1",
-    "tonalRamp": [
-     "#333538",
-     "#5b6065",
-     "#848a92",
-     "#adb5bf",
-     "#d5dde7",
-     "#e2e8ee",
-     "#eff2f6",
-     "#f9fafb"
-    ]
-   },
-   "lane-idle": {
-    "role": "neutral",
-    "displayName": "빈 레인",
-    "canonical": "#e8edf3",
-    "tonalRamp": [
-     "#3a3b3d",
-     "#686b6d",
-     "#979a9e",
-     "#c5c9cf",
-     "#edf1f5",
-     "#f2f5f8",
-     "#f8fafb",
-     "#fcfdfe"
-    ]
-   },
-   "ink": {
-    "role": "neutral",
-    "displayName": "잉크",
-    "canonical": "#020617",
-    "tonalRamp": [
-     "#000206",
-     "#01030a",
-     "#01040f",
-     "#020514",
-     "#353845",
-     "#74767f",
-     "#b3b4b9",
-     "#e1e1e3"
-    ]
-   },
-   "ink-secondary": {
-    "role": "neutral",
-    "displayName": "보조 잉크",
-    "canonical": "#334155",
-    "tonalRamp": [
-     "#0d1015",
-     "#171d26",
-     "#212a37",
-     "#2b3748",
-     "#5c6777",
-     "#8f96a2",
-     "#c2c6cc",
-     "#e7e8eb"
-    ]
-   },
-   "ink-muted": {
-    "role": "neutral",
-    "displayName": "설명 잉크",
-    "canonical": "#475569",
-    "tonalRamp": [
-     "#12151a",
-     "#20262f",
-     "#2e3744",
-     "#3c4859",
-     "#6c7787",
-     "#9aa2ac",
-     "#c8ccd2",
-     "#e9ebed"
-    ]
-   },
-   "ink-faint": {
-    "role": "neutral",
-    "displayName": "흐린 잉크",
-    "canonical": "#64748b",
-    "tonalRamp": [
-     "#191d23",
-     "#2d343f",
-     "#414b5a",
-     "#556376",
-     "#8390a2",
-     "#aab3bf",
-     "#d0d5dc",
-     "#eceef1"
-    ]
-   },
-   "rope-amber": {
-    "role": "secondary",
-    "displayName": "레인 로프 호박색",
-    "canonical": "#d97706",
-    "tonalRamp": [
-     "#361e02",
-     "#623603",
-     "#8d4d04",
-     "#b86505",
-     "#e19238",
-     "#eab476",
-     "#f4d6b4",
-     "#faefe1"
-    ]
-   },
-   "rope-amber-wash": {
-    "role": "secondary",
-    "displayName": "호박색 바탕",
-    "canonical": "#fef3c7",
-    "tonalRamp": [
-     "#403d32",
-     "#726d5a",
-     "#a59e81",
-     "#d8cfa9",
-     "#fef5d2",
-     "#fef8e0",
-     "#fffbee",
-     "#fffef8"
-    ]
-   },
-   "rope-amber-ink": {
-    "role": "secondary",
-    "displayName": "호박색 글자",
-    "canonical": "#92400e",
-    "tonalRamp": [
-     "#241004",
-     "#421d06",
-     "#5f2a09",
-     "#7c360c",
-     "#a8663e",
-     "#c3967a",
-     "#dec6b7",
-     "#f2e8e2"
-    ]
-   },
-   "rope-red": {
-    "role": "secondary",
-    "displayName": "레인 로프 빨강",
-    "canonical": "#b91c1c",
-    "tonalRamp": [
-     "#2e0707",
-     "#530d0d",
-     "#781212",
-     "#9d1818",
-     "#c74949",
-     "#d88282",
-     "#eabbbb",
-     "#f7e4e4"
-    ]
-   },
-   "rope-red-wash": {
-    "role": "secondary",
-    "displayName": "빨강 바탕",
-    "canonical": "#fee2e2",
-    "tonalRamp": [
-     "#403838",
-     "#726666",
-     "#a59393",
-     "#d8c0c0",
-     "#fee8e8",
-     "#feefef",
-     "#fff6f6",
-     "#fffcfc"
-    ]
-   },
-   "rope-red-ink": {
-    "role": "secondary",
-    "displayName": "빨강 글자",
-    "canonical": "#991b1b",
-    "tonalRamp": [
-     "#260707",
-     "#450c0c",
-     "#631212",
-     "#821717",
-     "#ad4949",
-     "#c78282",
-     "#e0bbbb",
-     "#f3e4e4"
-    ]
-   }
   },
-  "typographyMeta": {
-   "headline": {
-    "displayName": "Headline",
-    "purpose": "쪽 제목."
-   },
-   "title": {
-    "displayName": "Title",
-    "purpose": "판 제목과 달 이름."
-   },
-   "body": {
-    "displayName": "Body",
-    "purpose": "설명과 상세 문장."
-   },
-   "label": {
-    "displayName": "Label",
-    "purpose": "입력 이름, 범례, 표 머리."
-   },
-   "data": {
-    "displayName": "Data",
-    "purpose": "날짜 숫자, 시각, 대수. 고정폭 숫자."
-   }
-  },
-  "shadows": [
-   {
-    "name": "tooltip",
-    "value": "0 4px 12px rgba(15,23,42,.18)",
-    "purpose": "차트 툴팁에만. 판과 칸은 그림자 없음."
-   }
+  "components": [
+    {
+      "name": "주 단추",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "화면마다 하나뿐인 주 동작(.ics 받기, CSV 받기, 조회).",
+      "html": "<button class=\"ds-btn-primary\">내 수업 일정 .ics 받기</button>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-btn-primary{font-family:var(--font);display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--navy);border-radius:8px;background:var(--navy);color:var(--on-navy);font-size:.9375rem;font-weight:650;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease)}.ds-btn-primary:hover{background:var(--navy-hover);border-color:var(--navy-hover)}.ds-btn-primary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}"
+    },
+    {
+      "name": "보조 단추",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "흰 바탕과 조작 테두리의 보조 동작.",
+      "html": "<button class=\"ds-btn\">모두 보기</button>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-btn{font-family:var(--font);display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--control);border-radius:8px;background:var(--surface);color:var(--ink);font-size:.875rem;font-weight:650;cursor:pointer;transition:background-color .15s var(--ease)}.ds-btn:hover{background:var(--ground)}.ds-btn:focus-visible{outline:2px solid var(--navy);outline-offset:2px}"
+    },
+    {
+      "name": "조용한 단추",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "테두리 없는 남색 글자 동작(지우기, 바꾸기).",
+      "html": "<button class=\"ds-btn-quiet\">강좌 바꾸기</button>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-btn-quiet{font-family:var(--font);min-height:36px;padding:0 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--navy);font-size:.875rem;font-weight:650;cursor:pointer;transition:background-color .15s var(--ease)}.ds-btn-quiet:hover{background:var(--navy-wash)}.ds-btn-quiet:focus-visible{outline:2px solid var(--navy);outline-offset:2px}"
+    },
+    {
+      "name": "강좌 검색 입력",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "필드 이름을 위에 둔 44px 입력, 포커스는 남색.",
+      "html": "<label class=\"ds-field\"><span>내 강좌</span><input class=\"ds-input\" placeholder=\"강좌 이름이나 요일로 찾기\"></label>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-field{font-family:var(--font);display:grid;gap:6px;width:320px}.ds-field span{font-size:.8125rem;font-weight:600;color:var(--ink-2)}.ds-input{font-family:var(--font);min-height:44px;padding:0 12px;border:1px solid var(--control);border-radius:8px;background:var(--surface);color:var(--ink);font-size:.9375rem;transition:border-color .15s var(--ease)}.ds-input::placeholder{color:var(--muted)}.ds-input:hover{border-color:var(--muted)}.ds-input:focus-visible{outline:2px solid var(--navy);outline-offset:0;border-color:var(--navy)}"
+    },
+    {
+      "name": "머리띠 탭",
+      "kind": "nav",
+      "refersTo": "shell",
+      "description": "남색 머리띠 안의 세 탭, 현재 탭은 흰 글자와 바닥 2px 밑줄.",
+      "html": "<nav class=\"ds-shell\"><b>공연 혼잡 캘린더</b><a href=\"#\" aria-current=\"page\">수강생</a><a href=\"#\">기관</a><a href=\"#\">근거</a></nav>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-shell{font-family:var(--font);display:flex;align-items:stretch;gap:28px;min-height:60px;padding:0 32px;background:var(--navy);color:var(--on-navy)}.ds-shell b{display:flex;align-items:center;margin-right:12px;font-size:1rem;font-weight:700}.ds-shell a{position:relative;display:flex;align-items:center;color:var(--on-navy-muted);text-decoration:none;font-size:.9375rem;font-weight:500}.ds-shell a:hover{color:var(--on-navy)}.ds-shell a[aria-current=page]{color:var(--on-navy);font-weight:650}.ds-shell a[aria-current=page]::after{content:\"\";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--on-navy)}.ds-shell a:focus-visible{outline:2px solid var(--on-navy);outline-offset:-2px}"
+    },
+    {
+      "name": "달 분할 단추",
+      "kind": "chip",
+      "refersTo": "segmented-active",
+      "description": "달 이동용 한 줄 단추 묶음, 눌린 달은 남색.",
+      "html": "<div class=\"ds-months\"><button aria-pressed=\"true\">11월</button><button aria-pressed=\"false\">12월</button><button aria-pressed=\"false\">1월</button></div>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-months{display:inline-flex;border:1px solid var(--control);border-radius:8px;overflow:hidden}.ds-months button{font-family:var(--font);min-height:40px;padding:0 16px;border:0;border-left:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:.875rem;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}.ds-months button:first-child{border-left:0}.ds-months button:hover{background:var(--ground)}.ds-months button[aria-pressed=true]{background:var(--navy);color:var(--on-navy)}.ds-months button:focus-visible{outline:2px solid var(--navy);outline-offset:-4px}"
+    },
+    {
+      "name": "수준 글자",
+      "kind": "chip",
+      "refersTo": "day-strip-seg-busy",
+      "description": "알약 대신 작은 사각 견본과 글자로 쓰는 혼잡 수준.",
+      "html": "<span class=\"ds-chip\">한산</span> <span class=\"ds-chip lv1\">붐빔</span> <span class=\"ds-chip lv2\">매우 붐빔</span>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-chip{font-family:var(--font);display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:.8125rem;font-weight:650;color:var(--muted)}.ds-chip::before{content:\"\";width:12px;height:6px;border-radius:1px;background:var(--idle)}.ds-chip.lv1,.ds-chip.lv2{color:var(--signal-ink)}.ds-chip.lv1::before{background:var(--signal)}.ds-chip.lv2::before{background:var(--signal-strong)}"
+    },
+    {
+      "name": "하루 시간축 막대",
+      "kind": "custom",
+      "refersTo": "day-strip-seg",
+      "description": "서명 요소. 12~23시 축 위 오후 5시간과 저녁 6시간, 내 수업 눈금(옅음, 겹침, 토요일 선택).",
+      "html": "<div class=\"ds-strips\"><span class=\"ds-strip\"><i class=\"seg a\"></i><i class=\"seg e\"></i><i class=\"tick\" style=\"left:63%\"></i></span><span class=\"ds-strip\"><i class=\"seg a\"></i><i class=\"seg e lv1\"></i><i class=\"tick hit\" style=\"left:63%\"></i></span><span class=\"ds-strip\"><i class=\"seg a lv2\"></i><i class=\"seg e\"></i><i class=\"tick hit opt\" style=\"left:20%\"></i></span></div>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-strips{display:grid;gap:20px;width:200px;padding:8px}.ds-strip{position:relative;display:block;height:8px}.ds-strip .seg{position:absolute;top:0;bottom:0;border-radius:2px;background:var(--idle)}.ds-strip .seg.a{left:0;width:calc(45.4545% - 1px)}.ds-strip .seg.e{left:calc(45.4545% + 1px);right:0}.ds-strip .seg.lv1{background:var(--signal)}.ds-strip .seg.lv2{background:var(--signal-strong)}.ds-strip .tick{position:absolute;top:-2px;bottom:-2px;width:3px;border-radius:1px;background:var(--navy);opacity:.42}.ds-strip .tick.hit{top:-5px;bottom:-5px;width:5px;opacity:1;box-shadow:0 0 0 1.5px var(--surface)}.ds-strip .tick.hit.opt{background:var(--surface);box-shadow:inset 0 0 0 1.5px var(--navy),0 0 0 1.5px var(--surface)}"
+    },
+    {
+      "name": "달력 날짜 칸",
+      "kind": "card",
+      "refersTo": "day-cell",
+      "description": "숫자, 공연명, 내 수업 시각, 시간축 막대. 혼잡한 날은 주황 물빛, 선택은 안쪽 남색 테두리와 숫자 배지.",
+      "html": "<div class=\"ds-cal\"><button class=\"ds-day flag sel\"><b>14</b><span class=\"t\">KSPO DOME 공연</span><span class=\"me\">19:00 수업</span><span class=\"ds-s\"><i class=\"a\"></i><i class=\"e\"></i><i class=\"k\"></i></span></button><button class=\"ds-day today\"><b>17</b><span class=\"me\">19:00 수업</span><span class=\"ds-s\"><i class=\"a0\"></i><i class=\"e0\"></i><i class=\"k0\"></i></span></button></div>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-cal{display:grid;grid-template-columns:repeat(2,150px);border-top:1px solid var(--line)}.ds-day{font-family:var(--font);position:relative;display:flex;flex-direction:column;height:114px;padding:10px 12px 11px;border:0;border-bottom:1px solid var(--line);border-right:1px solid var(--line-soft);background:var(--surface);color:var(--ink);text-align:left;cursor:pointer;transition:background-color .15s var(--ease)}.ds-day:hover{background:var(--ground)}.ds-day.flag{background:var(--signal-wash)}.ds-day.flag:hover{background:#fce9da}.ds-day.sel{box-shadow:inset 0 0 0 2px var(--navy)}.ds-day:focus-visible{outline:2px solid var(--navy);outline-offset:-5px}.ds-day b{align-self:flex-start;font-size:1rem;font-weight:650;line-height:22px;font-variant-numeric:tabular-nums}.ds-day.sel b{display:inline-grid;place-items:center;min-width:26px;height:26px;margin:-2px 0 -2px -5px;padding:0 5px;border-radius:6px;background:var(--navy);color:var(--on-navy)}.ds-day.today b{display:inline-grid;place-items:center;min-width:26px;height:26px;margin:-2px 0 -2px -5px;padding:0 5px;border-radius:13px;box-shadow:inset 0 0 0 1.5px var(--navy);color:var(--navy);font-weight:700}.ds-day .t{margin-top:3px;font-size:.8125rem;font-weight:500}.ds-day .me{margin-top:auto;font-size:.8125rem;font-weight:650;color:var(--navy)}.ds-s{position:relative;display:block;height:8px;margin-top:6px}.ds-s i{position:absolute;top:0;bottom:0;border-radius:2px;background:var(--idle)}.ds-s .a,.ds-s .a0{left:0;width:calc(45.45% - 1px)}.ds-s .e,.ds-s .e0{left:calc(45.45% + 1px);right:0}.ds-s .e{background:var(--signal)}.ds-s .k,.ds-s .k0{left:63%;width:5px;top:-5px;bottom:-5px;border-radius:1px;background:var(--navy);box-shadow:0 0 0 1.5px var(--surface)}.ds-s .k0{width:3px;top:-2px;bottom:-2px;opacity:.42;box-shadow:none}"
+    },
+    {
+      "name": "툴팁",
+      "kind": "custom",
+      "refersTo": "tooltip",
+      "description": "근거 차트 위에 떠 있는 남색 툴팁, 그림자를 쓰는 몇 안 되는 층.",
+      "html": "<div class=\"ds-tip\"><b>18:00~19:00</b><span>붐빔 비율 62%</span></div>",
+      "css": ":host{--navy:#111d32;--navy-hover:#22314d;--navy-wash:#edf0f5;--ground:#f7f8fa;--surface:#fff;--line:#e3e8ef;--line-soft:#eef1f5;--control:#aeb8c6;--ink:#172033;--ink-2:#3d4a5f;--muted:#5b6b82;--on-navy:#fff;--on-navy-muted:#aeb9cb;--idle:#e3e8ef;--signal:#e87329;--signal-strong:#9a3412;--signal-ink:#af4d0f;--signal-wash:#fef4ec;--holiday:#c53340;--ease:cubic-bezier(.16,1,.3,1);--font:\"Pretendard Variable\",Pretendard,-apple-system,\"Apple SD Gothic Neo\",\"Malgun Gothic\",system-ui,sans-serif}.ds-tip{font-family:var(--font);display:inline-block;padding:8px 10px;border-radius:8px;background:var(--navy);color:var(--on-navy);font-size:.8125rem;line-height:1.4;box-shadow:0 12px 28px -12px rgba(17,29,50,.28),0 1px 3px rgba(17,29,50,.08)}.ds-tip b{display:block;font-size:.9375rem;font-variant-numeric:tabular-nums}.ds-tip span{color:var(--on-navy-muted)}"
+    }
   ],
-  "motion": [
-   {
-    "name": "ease-out-expo",
-    "value": "cubic-bezier(.16,1,.3,1)",
-    "purpose": "hover와 상태 전환 0.15초. 움직임 줄이기 설정에서는 0초."
-   }
-  ],
-  "breakpoints": [
-   {
-    "name": "one-column",
-    "value": "1023px"
-   },
-   {
-    "name": "mobile",
-    "value": "640px"
-   }
-  ]
- },
- "components": [
-  {
-   "name": "Primary Button",
-   "kind": "button",
-   "refersTo": "button-primary",
-   "description": "주 동작 하나(휴대폰 캘린더에 추가, CSV 내려받기).",
-   "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14\"/></svg>겹치는 날을 휴대폰 캘린더에 추가</a>",
-   "css": ".ds-btn-primary{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:6px;border:1px solid #0369a1;background:#0369a1;color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:background-color .15s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:#075985;border-color:#075985}.ds-btn-primary:focus-visible{outline:2px solid #0369a1;outline-offset:2px}"
-  },
-  {
-   "name": "Secondary Button",
-   "kind": "button",
-   "refersTo": "button-secondary",
-   "description": "보조 동작(더 보기).",
-   "html": "<button class=\"ds-btn\" type=\"button\">50회 더 보기</button>",
-   "css": ".ds-btn{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;min-height:40px;padding:0 16px;border-radius:6px;border:1px solid #cbd5e1;background:#fff;color:#020617;font-size:14px;font-weight:600;cursor:pointer;transition:background-color .15s}.ds-btn:hover{background:#f1f5f9}.ds-btn:focus-visible{outline:2px solid #0369a1;outline-offset:2px}"
-  },
-  {
-   "name": "Search Input",
-   "kind": "input",
-   "refersTo": "input",
-   "description": "강좌 찾기 콤보박스 입력.",
-   "html": "<label class=\"ds-field\"><span>강좌 이름으로 찾기</span><span class=\"ds-search\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"m20 20-4.2-4.2\"/></svg><input type=\"search\" placeholder=\"예: 19시 수영, 아쿠아로빅\"></span></label>",
-   "css": ".ds-field{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;display:grid;gap:6px;font-size:13px;font-weight:600;color:#334155}.ds-search{position:relative;display:block}.ds-search svg{position:absolute;left:12px;top:12px;color:#64748b}.ds-search input{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;width:100%;min-height:42px;padding:0 12px 0 38px;border:1px solid #cbd5e1;border-radius:6px;font-size:15px;color:#020617;background:#fff;box-sizing:border-box}.ds-search input::placeholder{color:#64748b}.ds-search input:focus-visible{outline:2px solid #0369a1;outline-offset:0;border-color:#0369a1}"
-  },
-  {
-   "name": "Shell Navigation",
-   "kind": "nav",
-   "refersTo": "",
-   "description": "남색 머리띠와 세 화면 탭.",
-   "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">수강생 캘린더</a><a href=\"#\">기관 겹침 목록</a><a href=\"#\">근거와 검증</a></nav>",
-   "css": ".ds-nav{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;display:flex;gap:4px;background:#0f172a;padding:0 12px}.ds-nav a{position:relative;padding:17px 12px 15px;color:#cbd5e1;text-decoration:none;font-size:14px;font-weight:500}.ds-nav a:hover{color:#f8fafc}.ds-nav a[aria-current=page]{color:#f8fafc;font-weight:650}.ds-nav a[aria-current=page]::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:3px;background:#38bdf8;border-radius:2px 2px 0 0}.ds-nav a:focus-visible{outline:2px solid #38bdf8;outline-offset:-2px}"
-  },
-  {
-   "name": "Level Chip",
-   "kind": "chip",
-   "refersTo": "chip-busy",
-   "description": "혼잡 수준 표. 색과 글자를 함께 씁니다.",
-   "html": "<span class=\"ds-chip\">보통</span> <span class=\"ds-chip ds-lv1\">붐빔</span> <span class=\"ds-chip ds-lv2\">매우 붐빔</span>",
-   "css": ".ds-chip{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;display:inline-flex;align-items:center;gap:6px;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:650;line-height:1.6;background:#f1f5f9;color:#334155}.ds-chip::before{content:'';width:10px;height:4px;border-radius:1px;background:#cbd5e1}.ds-lv1{background:#fef3c7;color:#92400e}.ds-lv1::before{background:#d97706}.ds-lv2{background:#fee2e2;color:#991b1b}.ds-lv2::before{background:#b91c1c}"
-  },
-  {
-   "name": "Day Tile",
-   "kind": "custom",
-   "refersTo": "day-tile",
-   "description": "날짜 칸: 위 줄 오후, 아래 줄 저녁. 내 수업 레인은 파란 외곽선.",
-   "html": "<div class=\"ds-cal\"><button class=\"ds-day\" type=\"button\"><b>5</b><span class=\"ds-lanes\"><i class=\"ds-l1\"></i><i class=\"ds-l1\"></i></span><span class=\"ds-t\">이승철 40주년 콘서트</span></button><button class=\"ds-day ds-sel\" type=\"button\"><b>18</b><span class=\"ds-lanes\"><i></i><i class=\"ds-l1 ds-my\"></i></span><span class=\"ds-t ds-me\">내 수업 19:00</span></button><button class=\"ds-day\" type=\"button\"><b>21</b><span class=\"ds-lanes\"><i></i><i class=\"ds-my\"></i></span></button></div>",
-   "css": ".ds-cal{display:grid;grid-template-columns:repeat(3,120px);gap:1px;background:#e2e8f0;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden}.ds-day{font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;display:flex;flex-direction:column;min-height:96px;padding:8px;border:0;background:#fff;text-align:left;cursor:pointer;color:#020617}.ds-day:hover{background:#f1f5f9}.ds-day:focus-visible{outline:2px solid #0369a1;outline-offset:-3px}.ds-day b{font-size:14px;font-weight:650;font-variant-numeric:tabular-nums}.ds-lanes{display:grid;gap:5px;margin-top:8px}.ds-lanes i{display:block;height:8px;border-radius:2px;background:#e8edf3}.ds-lanes i.ds-l1{background:#d97706}.ds-lanes i.ds-my{outline:2px solid #0369a1;outline-offset:1px}.ds-t{margin-top:auto;padding-top:6px;font-size:12px;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-me{color:#075985;font-weight:650}.ds-sel{box-shadow:inset 0 0 0 2px #0f172a}"
+  "narrative": {
+    "northStar": "시청 데이터 지면 (The Civic Data Broadsheet)",
+    "overview": "공공 데이터 플랫폼의 정확함과 잘 짜인 편집 지면의 절제를 합친 체계다. 남색 머리띠 아래 서늘한 회색 바탕이 깔리고, 그 위에 흰 작업 판 하나가 놓인다. 판 안은 카드로 쪼개지 않고 1px 선으로만 나뉜다. 모든 정보는 숫자와 시간축으로 말하며, 장식은 없다.\n\n이 체계의 중심은 하루 시간축 막대다. 12시부터 23시까지를 실제 비율로 그린 짧은 막대가 오후(5시간)와 저녁(6시간) 두 구간으로 갈리고, 공연 혼잡은 주황으로, 내 수업 시각은 남색 눈금으로 같은 축 위에 찍힌다. 같은 막대가 달력 칸, 날짜 상세 도표, 다가오는 목록, 기관 표의 묶음 줄에 크기만 바꿔 반복된다. 화면이 달라도 읽는 법은 하나다.\n\n색은 뜻을 가진다. 남색은 틀과 주 동작, 선택, 내 수업이고, 주황은 오직 '공연으로 붐빔'이다. 이 둘이 한 칸에서 만나는 순간이 이 제품이 전하려는 단 하나의 사실이다.",
+    "keyCharacteristics": [
+      "남색 머리띠, 회색 바탕, 흰 판 하나, 1px 선으로 나뉜 내부",
+      "주황은 혼잡 데이터 전용, 동작과 링크는 남색",
+      "숫자는 모두 고정폭(tabular-nums), 글꼴은 Pretendard 하나",
+      "하루 시간축 막대와 내 수업 눈금이 모든 화면에 같은 문법으로 반복",
+      "그림자는 떠 있는 층(콤보박스 목록, 툴팁, 건너뛰기 링크)에만"
+    ],
+    "rules": [
+      {
+        "name": "The 주황은 데이터 Rule",
+        "body": "주황 계열(`signal`, `signal-strong`, `signal-ink`, `signal-wash`)은 '공연으로 붐빔'이라는 뜻에만 쓴다. 단추, 링크, 포커스, 선택, 강조 장식에는 절대 쓰지 않는다. 주황이 보이면 그곳은 붐빈다.",
+        "section": "colors"
+      },
+      {
+        "name": "The 남색은 나 Rule",
+        "body": "내 수업과 내 선택(선택한 날, 선택한 달, 내 수업 라벨과 눈금)은 남색으로만 그린다. 그래서 '주황 위의 남색 눈금'이 곧 '겹침'으로 읽힌다.",
+        "section": "colors"
+      },
+      {
+        "name": "The 휴일 숫자 Rule",
+        "body": "휴일 적색은 날짜 숫자와 공휴일 이름에만 쓴다. 칸 바탕이나 막대에 번지지 않는다.",
+        "section": "colors"
+      },
+      {
+        "name": "The 고정폭 숫자 Rule",
+        "body": "날짜, 시각, 횟수, 비율처럼 비교되는 숫자는 모두 `font-variant-numeric: tabular-nums`로 쓴다. 열이 흔들리면 데이터 지면이 아니다.",
+        "section": "typography"
+      },
+      {
+        "name": "The 무게로 위계 Rule",
+        "body": "위계는 크기 8단계(32/24/18/16/15/14/13/12)와 무게(400/500/600/650/700)로만 만든다. 대문자 변환, 넓은 자간, 색 강조로 위계를 만들지 않는다.",
+        "section": "typography"
+      },
+      {
+        "name": "The 한 장의 판 Rule",
+        "body": "흰 판은 화면마다 하나다. 판 안을 카드로 다시 쪼개거나 그림자로 띄우지 않고, 선과 여백으로만 나눈다.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 공연 혼잡을 표시할 때는 언제나 12~23시 시간축 막대의 오후/저녁 두 구간으로 그린다. 새 화면도 같은 막대를 크기만 바꿔 쓴다.",
+      "**Do** 내 수업과 겹치는 날은 주황 구간 위 진한 남색 눈금(흰 테두리)으로, 겹치지 않는 수업일은 옅은 눈금으로 구분한다.",
+      "**Do** 판 안 구획은 1px `line`과 `line-soft`로만 나누고 흰 판은 한 장으로 둔다.",
+      "**Do** 비교되는 숫자는 모두 고정폭 숫자로 쓴다.",
+      "**Do** 누를 곳은 휴대폰에서 44px 이상, 포커스는 남색 2px 외곽선으로 보이게 한다.",
+      "**Do** 수준은 작은 사각 견본과 글자로 쓴다."
+    ],
+    "donts": [
+      "**Don't** 주황 계열을 단추, 링크, 선택, 포커스, 장식 강조에 쓴다.",
+      "**Don't** 날짜 아래 점, 알약 배지, 카드 위젯 묶음 같은 흔한 SaaS 달력 문법으로 혼잡을 표시한다.",
+      "**Don't** 판이나 칸, 단추에 그림자를 준다. 그림자는 떠 있는 층에만.",
+      "**Don't** 그라데이션을 쓴다.",
+      "**Don't** 제목 위 눈썹 라벨이나 대문자 소제목을 단다.",
+      "**Don't** 두 번째 글꼴을 들인다.",
+      "**Don't** 휴일 적색을 날짜 숫자와 공휴일 이름 밖에서 쓴다."
+    ]
   }
- ],
- "narrative": {
-  "northStar": "수영장 강습 시간표 게시판",
-  "overview": "수강생이 매주 보는 수영장 시간표와 레인의 세계를 빌린 업무용 화면입니다. 화면의 짜임은 흔한 달력과 표 그대로 두고, 세계는 네 가지만 빌려줍니다. 하나의 한글 글꼴(Pretendard)과 고정폭 숫자, 남색 머리띠와 타일 줄눈 격자, 레인 로프의 호박색과 빨강, 그리고 대표 동작 하나입니다. 대표 동작은 날짜 칸을 오후와 저녁 두 레인으로 나누고, 강좌를 고르면 그 수업 시간의 레인이 한 달 내내 파란 테두리로 켜지는 것입니다. 예보 데이터의 구조(날짜와 구간)가 곧 화면의 구조입니다.",
-  "keyCharacteristics": [
-   "날짜 칸 하나에 레인 두 줄(위 오후 12~16시, 아래 저녁 17~22시)",
-   "색은 상태와 내 강좌에만, 장식에는 쓰지 않음",
-   "그림자 없는 평면, 경계는 1px 줄눈",
-   "숫자는 모두 고정폭 숫자로 정렬"
-  ],
-  "rules": [
-   {
-    "name": "The Earned Color Rule",
-    "body": "레인과 막대는 공연 때문에 평소보다 붐빌 때만 칠합니다. 원래 붐비는 시간에 색을 쓰면 달력이 매일 칠해져 아무것도 알려 주지 못합니다.",
-    "section": "colors"
-   },
-   {
-    "name": "The One Blue Rule",
-    "body": "수영장 파랑은 '나'와 '주 동작'의 색입니다. 데이터 계열이나 장식에 쓰지 않습니다.",
-    "section": "colors"
-   },
-   {
-    "name": "The Timetable Numerals Rule",
-    "body": "줄을 맞춰 읽는 숫자(날짜, 시각, 표의 수)는 고정폭 숫자로, 문장 속 큰 숫자는 기본 숫자로 씁니다.",
-    "section": "typography"
-   },
-   {
-    "name": "The Grout Not Shadow Rule",
-    "body": "구분은 줄눈(1px 선)과 바탕 단계로 합니다. 판에 그림자를 넣지 않습니다.",
-    "section": "elevation"
-   }
-  ],
-  "dos": [
-   "새 화면도 날짜와 구간을 레인 두 줄로 보여 주는 문법을 그대로 씁니다.",
-   "수준은 색과 글자를 함께 씁니다(수준 표의 '붐빔', 칸의 접근성 이름). 색만으로 알리지 않습니다.",
-   "숫자 열은 오른쪽 정렬과 고정폭 숫자로 맞춥니다.",
-   "차트는 한 계열이면 수영장 파랑 하나, 비교는 채운 점(이 서비스)과 빈 점(평소 패턴)처럼 모양으로 구분합니다."
-  ],
-  "donts": [
-   "판에 그림자, 그라데이션, 유리 효과를 넣지 않습니다.",
-   "같은 크기 카드에 큰 숫자를 얹은 대시보드 타일을 만들지 않습니다. 요약 수치는 문장 속 굵은 숫자로 씁니다.",
-   "제목 위에 작은 머리말 라벨을 달지 않고, 메타 정보를 가운뎃점으로 잇지 않습니다.",
-   "레인 로프 두 색을 상태 말고 다른 데이터 계열에 쓰지 않습니다.",
-   "이모지나 글자 기호를 아이콘 대신 쓰지 않습니다."
-  ]
- }
 }

@@ -1,0 +1,55 @@
+/* 올림픽공원 공연 혼잡 캘린더: 디자인 토큰 (제안안, 승인 전)
+   세계: Civic Data Platform x Premium Editorial
+   규칙: 주황은 '공연 혼잡'의 뜻으로만 쓴다. 남색은 틀, 주 동작, 선택, 내 수업. */
+:root {
+  /* 색: 바탕과 틀 */
+  --navy: #111D32;            /* Primary. 머리띠, 주 단추, 선택, 내 수업 */
+  --navy-hover: #22314D;
+  --navy-wash: #EDF0F5;       /* 내 수업 안내 바탕 */
+  --ground: #F7F8FA;          /* Background */
+  --surface: #FFFFFF;         /* Surface */
+  --line: #E3E8EF;            /* Border: 판 경계, 주 가로줄 */
+  --line-soft: #EEF1F5;       /* 달력 세로줄, 목록 안 구분선 */
+  --control: #AEB8C6;         /* 입력과 단추 테두리 */
+
+  /* 색: 글자 */
+  --ink: #172033;             /* Text Primary */
+  --ink-2: #3D4A5F;           /* 본문 보조 */
+  --muted: #5B6B82;           /* Text Secondary. #64748B는 바탕(#F7F8FA)에서 4.48:1이라 한 단계 어둡게 */
+  --on-navy: #FFFFFF;
+  --on-navy-muted: #AEB9CB;
+
+  /* 색: 상태 (공연 혼잡 단계, 한 색상의 명도 단계) */
+  --idle: #E3E8EF;            /* 공연 혼잡 없음 */
+  --signal: #E87329;          /* Accent = 공연으로 붐빔 */
+  --signal-strong: #9A3412;   /* 공연으로 매우 붐빔 */
+  --signal-ink: #AF4D0F;      /* 수준 글자 (흰 바탕 5.4:1) */
+  --signal-wash: #FEF4EC;     /* 공연 혼잡일 칸 바탕 */
+  --signal-wash-hover: #FCE9DA;
+  --holiday: #C53340;         /* 일요일과 공휴일 날짜 숫자 */
+
+  /* 글꼴 */
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --fs-display: 2rem;         /* 32 달 제목 */
+  --fs-title-l: 1.5rem;       /* 24 날짜 상세 제목 */
+  --fs-title-m: 1.125rem;     /* 18 구역 제목 */
+  --fs-title-s: 1rem;         /* 16 소제목, 날짜 숫자 */
+  --fs-body: .9375rem;        /* 15 본문 */
+  --fs-body-s: .875rem;       /* 14 보조 본문, 표 */
+  --fs-label: .8125rem;       /* 13 라벨, 칸 안 공연명 */
+  --fs-micro: .75rem;         /* 12 눈금, 공휴일 이름 (이 밖에는 쓰지 않음) */
+
+  /* 간격 (4의 배수) */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 20px; --s6: 24px; --s7: 28px; --s8: 32px; --s10: 40px; --s12: 48px;
+
+  /* 모서리: 쓰임별 세 단계 */
+  --r-mark: 2px;              /* 막대, 눈금, 견본 */
+  --r-ctl: 8px;               /* 입력, 단추, 안내 상자 */
+  --r-sheet: 12px;            /* 작업 판 하나 */
+
+  /* 깊이: 펼침 목록에만 */
+  --pop: 0 12px 28px -12px rgba(17, 29, 50, .28), 0 1px 3px rgba(17, 29, 50, .08);
+
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: light;
+}

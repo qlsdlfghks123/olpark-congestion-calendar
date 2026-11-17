@@ -5,78 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>공연 혼잡 캘린더 | 올림픽공원 공연 혼잡 캘린더</title>
 <meta name="description" content="올림픽공원 공연 때문에 주차장이 붐비는 오후와 저녁을 미리 보고, 올림픽수영장 내 강좌와 겹치는 날을 확인합니다.">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#111d32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts/pretendard.css">
 <link rel="stylesheet" href="app.css">
 </head>
 <body data-page="citizen">
+<a class="skip" href="#main">본문 바로가기</a>
 <header class="shell">
   <div class="shell-in">
-    <a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="3.75" width="18.5" height="16.5" rx="2" fill="none" stroke="#cbd5e1" stroke-width="1.5"/><path d="M6.5 9.75h11" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><path d="M6.5 14.25h4.5" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/><path d="M13.5 14.25h4" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg>올림픽공원 공연 혼잡 캘린더</a>
+    <a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="17" rx="3.5" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M7.25 9h3.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="6.5" y="13.75" width="4.75" height="3" rx=".8" fill="#aeb9cb"/><rect x="12.5" y="13.75" width="5" height="3" rx=".8" fill="#e87329"/></svg>올림픽공원 공연 혼잡 캘린더</a>
     <nav class="nav" aria-label="화면 이동"><a href="index.html" aria-current="page">수강생 캘린더</a><a href="agency.html">기관 겹침 목록</a><a href="evidence.html">근거와 검증</a></nav>
+    <p class="shell-meta" id="period"></p>
   </div>
 </header>
 
-<main class="wrap">
-  <div class="pagehead">
-    <div>
-      <h1>공연 혼잡 캘린더</h1>
-      <p>올림픽공원에서 공연이 있는 날 동2, 남2, 북2 주차장이 평소보다 붐비는 오후와 저녁을 미리 알려 드립니다. 내 강좌를 고르면 겹치는 수업을 짚어 드립니다.</p>
-    </div>
-    <p class="meta" id="period"></p>
-  </div>
+<main class="page" id="main">
+  <h1 class="sr">공연 혼잡 캘린더</h1>
+  <div class="sheet board">
+    <div class="cal-col">
+      <section class="calwrap" aria-labelledby="month">
+        <div class="calhead">
+          <div>
+            <h2 id="month" aria-live="polite">불러오는 중</h2>
+            <p class="stand" id="stand"></p>
+          </div>
+          <div class="months" id="months" role="group" aria-label="달 선택"></div>
+        </div>
+        <div class="legend">
+          <span class="wide"><span class="strip" aria-hidden="true"><span class="seg a"></span><span class="seg e"></span></span>막대 왼쪽 오후 12~16시, 오른쪽 저녁 17~22시</span>
+          <span><i class="sw lv-1" aria-hidden="true"></i>공연으로 붐빔</span>
+          <span><i class="sw lv-2" aria-hidden="true"></i>공연으로 매우 붐빔</span>
+          <span><i class="sw tick" aria-hidden="true"></i>내 수업</span>
+          <span><i class="sw tick opt" aria-hidden="true"></i>토요일 선택 수업</span>
+        </div>
+        <div id="cal" class="cal" role="group" aria-label="예보 달력"></div>
+        <p class="calnote">공연 때문에 평소보다 붐빌 때만 주황으로 칠합니다. 평일 낮처럼 원래 붐비는 시간은 날짜를 누르면 볼 수 있습니다.</p>
+      </section>
 
-  <div class="board">
-    <div class="side">
-      <section class="panel a-course" aria-labelledby="h-course">
-        <h2 id="h-course">내 강좌</h2>
+      <section class="upcoming" aria-labelledby="h-up">
+        <div class="sec-head"><h2 id="h-up">다가오는 공연 혼잡</h2><span class="count" id="up-count"></span><button class="btn quiet" id="upmore" type="button" hidden></button></div>
+        <ul class="uplist" id="uplist"></ul>
+      </section>
+    </div>
+
+    <aside class="rail" aria-label="내 강좌와 날짜 상세">
+      <section class="mycourse" aria-labelledby="h-course">
+        <div class="rail-head"><h2 id="h-course">내 강좌</h2><button class="btn quiet" id="other" type="button" hidden>다른 강좌 고르기</button></div>
         <div class="field">
           <label for="q">강좌 이름으로 찾기</label>
           <div class="search">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
             <input id="q" class="input" type="search" role="combobox" aria-expanded="false" aria-controls="results" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="예: 19시 수영, 아쿠아로빅">
             <button class="clear" id="clear" type="button" aria-label="검색어 지우기" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7 7 17M7 7l10 10"/></svg></button>
+            <ul id="results" class="results" role="listbox" aria-label="강좌 검색 결과" hidden></ul>
           </div>
         </div>
-        <ul id="results" class="results" role="listbox" aria-label="강좌 검색 결과" hidden></ul>
-        <p id="mine-hint" class="hint gap-top">강좌를 고르면 달력에서 내 수업 시간 줄이 파랗게 표시됩니다.</p>
+        <p id="mine-hint" class="hint">강좌를 고르면 수업이 있는 날마다 그 시각에 눈금이 찍히고, 공연 혼잡과 겹치는 날을 짚어 드립니다.</p>
         <div id="mine" class="mine" hidden></div>
       </section>
 
-      <section class="panel a-detail detail" id="detail" aria-live="polite" aria-label="날짜 상세"><p class="loading">예보를 불러오는 중입니다.</p></section>
-    </div>
-
-    <div class="main">
-      <section class="panel a-cal" aria-labelledby="month">
-        <div class="calbar">
-          <h2 id="month" aria-live="polite">불러오는 중</h2>
-          <div class="months" id="months" role="group" aria-label="달 선택"></div>
-        </div>
-        <div class="legend">
-          <span><span class="mini" aria-hidden="true"><i></i><i></i></span>위 줄 오후(12~16시), 아래 줄 저녁(17~22시)</span>
-          <span><i class="sw lv-1" aria-hidden="true"></i>공연으로 붐빔</span>
-          <span><i class="sw lv-2" aria-hidden="true"></i>공연으로 매우 붐빔</span>
-          <span><i class="sw my" aria-hidden="true"></i>내 수업 시간</span>
-        </div>
-        <div id="cal" class="cal" role="group" aria-label="예보 달력"></div>
-        <p class="hint calnote">공연 때문에 평소보다 붐빌 때만 색을 칠합니다. 평일 낮처럼 원래 붐비는 시간은 날짜를 누르면 볼 수 있습니다.</p>
-      </section>
-
-      <section class="panel a-upcoming" aria-labelledby="h-up">
-        <div class="panel-head"><h2 id="h-up">다가오는 공연 혼잡</h2><span class="hint" id="up-count"></span></div>
-        <ul class="uplist" id="uplist"></ul>
-        <button class="btn quiet more" id="upmore" type="button" hidden></button>
-      </section>
-    </div>
+      <section class="detail" id="detail" aria-live="polite" aria-label="날짜 상세"><p class="loading">예보를 불러오는 중입니다.</p></section>
+    </aside>
   </div>
 </main>
 
 <footer class="foot" id="sources">
-  <div class="wrap">
-    <div><h2>데이터 출처</h2><ul id="src-list"></ul></div>
-    <div><h2>알아 두실 점</h2><p id="src-def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
-  </div>
+  <div><h2>데이터 출처</h2><ul id="src-list"></ul></div>
+  <div><h2>알아 두실 점</h2><p id="src-def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
 </footer>
 <script src="app.js"></script>
 </body>
