@@ -14,6 +14,8 @@ from olpark.forecast import forecast, to_blocks
 from olpark.load import CLEAN_MONTHS, expand_sessions, load_courses, load_linked, load_schedule
 from olpark.overlap import evidence_2025, overlaps
 
+MIN_DAYS = 28
+
 SOURCES = {
     "data": [
         {"name": "한국체육산업개발 올림픽공원 2025 차량입출차, 공연, 날씨정보 등 연계 데이터 (API_CPM_009)",
@@ -51,7 +53,8 @@ def main(argv=None):
     courses = load_courses(a.courses)
     sched = load_schedule(a.schedule)
     start = date.fromisoformat(a.start) if a.start else date.today() + timedelta(days=1)
-    end = date.fromisoformat(a.end) if a.end else max(sched["date"])
+    # 일정이 끝나 가도 최소 4주는 예보한다 (공연이 없으면 평소 수준으로 표시)
+    end = date.fromisoformat(a.end) if a.end else max([*sched["date"], start + timedelta(days=MIN_DAYS - 1)])
 
     table, analog, th = fit_baseline(df, months), fit_analog(df, months), level_thresholds(df, months)
     s = sched[(sched["date"] >= start) & (sched["date"] <= end)]

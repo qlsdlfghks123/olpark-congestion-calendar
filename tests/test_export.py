@@ -73,3 +73,25 @@ def test_write_json_turns_nan_into_null(tmp_path):
     p = tmp_path / "x.json"
     write_json(p, {"a": float("nan"), "b": [1.0, float("nan")], "c": pd.DataFrame({"v": [1, None]}).to_dict("records")})
     assert json.loads(p.read_text(encoding="utf-8")) == {"a": None, "b": [1.0, None], "c": [{"v": 1.0}, {"v": None}]}
+
+
+def test_package_sources_compile_without_warnings():
+    import warnings
+    from pathlib import Path as _P
+    for f in sorted((_P(__file__).parent.parent / "olpark").glob("*.py")):
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            compile(f.read_text(encoding="utf-8"), str(f), "exec")
+
+
+def test_ics_escapes_text_special_characters():
+    from olpark.export import _esc
+    assert _esc("a;b,c\\d\ne") == "a\;b\\,c\\\\d\\ne"
+
+
+def test_build_after_last_scheduled_show_still_writes_four_weeks(tmp_path):
+    main(["--out", str(tmp_path), "--linked", str(FIX / "linked_build.csv"), "--courses", str(FIX / "courses_small.csv"),
+          "--schedule", str(FIX / "schedule_small.csv"), "--start", "2027-06-01", "--months", "1"])
+    fc = json.loads((tmp_path / "forecast.json").read_text(encoding="utf-8"))
+    assert fc["period"] == {"start": "2027-06-01", "end": "2027-06-28"}
+    assert not any(b["show_congestion"] for b in fc["blocks"])

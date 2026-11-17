@@ -8,7 +8,7 @@ def _df():
     for m in (1, 2, 3):
         for day in pd.date_range(f"2025-{m:02d}-03", periods=21, freq="D"):
             for h in range(24):
-                show = "S" + str(day.date()) if (day.dayofweek == 5 and h >= 19) else None
+                show = "S" + str(day.date()) if (day.day_of_week == 5 and h >= 19) else None
                 rows.append((str(day + pd.Timedelta(hours=h)), 100 + (900 if show else 0), show, 20000 if show else 0))
     df = make_df(rows)
     df["rain"] = [1.0 if i % 10 == 0 else float("nan") for i in range(len(df))]

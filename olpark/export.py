@@ -27,7 +27,7 @@ def project_timetable(timetable: pd.DataFrame, start: date) -> pd.DataFrame:
 
 
 def _esc(s: str) -> str:
-    return s.replace("\\", "\\\\").replace(";", "\;").replace(",", "\\,").replace("\n", "\\n")
+    return s.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
 
 
 def write_ics(path: Path, course_name: str, ov: pd.DataFrame) -> None:

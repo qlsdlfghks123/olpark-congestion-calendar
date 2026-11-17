@@ -101,7 +101,7 @@ def expand_sessions(courses: pd.DataFrame, start, end) -> pd.DataFrame:
         if lo > hi:
             continue
         for d in pd.date_range(lo, hi, freq="D"):
-            wd = d.dayofweek
+            wd = d.day_of_week
             if d.date() in _KR_HOLIDAYS:
                 continue
             if wd in c.days or wd in c.optional_days:

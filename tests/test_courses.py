@@ -26,9 +26,9 @@ def test_open_ended_period_is_clipped():
 def test_optional_saturday_sessions_flagged():
     s = expand_sessions(load_courses(FIXTURE), date(2025, 9, 1), date(2025, 9, 30))
     mine = s[s.course_no == "1027444"]
-    sat = mine[pd.to_datetime(mine.date).dt.dayofweek == 5]
+    sat = mine[pd.to_datetime(mine.date).dt.day_of_week == 5]
     assert len(sat) == 4 and sat.optional.all()
-    assert not mine[pd.to_datetime(mine.date).dt.dayofweek != 5].optional.any()
+    assert not mine[pd.to_datetime(mine.date).dt.day_of_week != 5].optional.any()
 
 
 def test_closed_month_row_stays_in_its_month():

@@ -69,7 +69,7 @@ def test_evidence_keys():
     rows = []
     for day in pd.date_range("2025-01-06", periods=28, freq="D"):
         for hh in range(24):
-            show = "S" + str(day.date()) if (day.dayofweek == 5 and hh >= 18) else None
+            show = "S" + str(day.date()) if (day.day_of_week == 5 and hh >= 18) else None
             rows.append((str(day + pd.Timedelta(hours=hh)), 300 + (3000 if show else 0), show, 20000 if show else 0))
     courses = pd.DataFrame([{"course_no": "1", "sub_no": "1", "month": pd.Period("2025-01", "M"), "name": "토요 수영",
                              "start": pd.Timestamp("19:00").time(), "end": pd.Timestamp("19:50").time(), "capacity": 10,
