@@ -31,6 +31,9 @@ def load_linked(path: str) -> pd.DataFrame:
 
 
 # ---------- 강좌정보 ----------
+import holidays as _holidays  # noqa: E402
+
+_KR_HOLIDAYS = _holidays.KR(years=range(2024, 2029))
 _DAY = {"월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6}
 
 
@@ -89,6 +92,8 @@ def expand_sessions(courses: pd.DataFrame, start, end) -> pd.DataFrame:
             continue
         for d in pd.date_range(lo, hi, freq="D"):
             wd = d.dayofweek
+            if d.date() in _KR_HOLIDAYS:
+                continue
             if wd in c.days or wd in c.optional_days:
                 rows.append({
                     "course_no": c.course_no, "name": c.name, "date": d.date(),
@@ -104,3 +109,29 @@ def expand_sessions(courses: pd.DataFrame, start, end) -> pd.DataFrame:
 def latest_timetable(courses: pd.DataFrame) -> pd.DataFrame:
     return (courses.sort_values(["course_no", "month", "sub_no"])
             .groupby("course_no", as_index=False).tail(1).reset_index(drop=True))
+
+
+# ---------- 앞으로의 공연 일정 ----------
+VENUE_DEFAULT_SIZE = {"KSPO DOME": "L", "티켓링크 라이브 아레나": "M", "핸드볼경기장": "M"}
+ASSUMED_START = "19:00"
+
+
+def load_schedule(path: str) -> pd.DataFrame:
+    from olpark.events import size_of
+    raw = pd.read_csv(path, dtype=str).fillna("")
+    rows = []
+    for r in raw.itertuples(index=False):
+        if "~" in r.date:
+            a, b = (x.strip() for x in r.date.split("~"))
+            dates = [d.date() for d in pd.date_range(a, b, freq="D")]
+        else:
+            dates = [pd.to_datetime(r.date.strip()).date()]
+        assumed = r.start_time.strip() == ""
+        hh = int((ASSUMED_START if assumed else r.start_time.strip()).split(":")[0])
+        aud = pd.to_numeric(r.expected_audience, errors="coerce")
+        size = size_of(aud) if pd.notna(aud) else VENUE_DEFAULT_SIZE.get(r.venue.strip(), "S")
+        for d in dates:
+            rows.append({"date": d, "start_hour": hh, "start_time": "" if assumed else r.start_time.strip(),
+                         "start_time_assumed": assumed, "venue": r.venue.strip(), "title": r.title.strip(),
+                         "size": size, "source": r.source.strip()})
+    return pd.DataFrame(rows)

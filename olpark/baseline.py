@@ -31,9 +31,17 @@ def _nearest_month(target: int, available: list[int]) -> int:
     return min(available, key=key)
 
 
+_SIBLINGS = {"sat": ["sat", "sun_hol", "weekday"], "sun_hol": ["sun_hol", "sat", "weekday"],
+             "weekday": ["weekday", "sat", "sun_hol"]}
+
+
 def baseline_at(table: pd.DataFrame, ts: pd.Timestamp, holiday_name: str | None = None):
-    dt_ = day_type(ts.date(), holiday_name)
-    cell = table[(table["day_type"] == dt_) & (table["hour"] == ts.hour)]
+    """(값, 대체에 쓴 월). 해당 요일 유형의 그 시각 값이 어느 달에도 없으면 비슷한 요일 유형(토↔일·휴일)을 쓴다."""
+    cell = pd.DataFrame()
+    for dt_ in _SIBLINGS[day_type(ts.date(), holiday_name)]:
+        cell = table[(table["day_type"] == dt_) & (table["hour"] == ts.hour)]
+        if not cell.empty:
+            break
     if cell.empty:
         return float("nan"), None
     months = sorted(cell["month"].unique().tolist())

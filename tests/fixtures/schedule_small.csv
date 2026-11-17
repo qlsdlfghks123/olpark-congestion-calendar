@@ -1,0 +1,4 @@
+date,start_time,venue,title,expected_audience,source
+2026-12-24~2026-12-26,20:00,올림픽홀,범위공연,,https://example.org/1
+2027-01-23,,KSPO DOME,시각미정공연,,https://example.org/2
+2027-01-24,16:00,티켓링크 라이브 아레나,관객수공연,16000,https://example.org/3

@@ -69,3 +69,9 @@ def test_baseline_from_loaded_csv_has_weekday_cells():
 def test_fallback_tie_prefers_month_before_target():
     t = pd.DataFrame({"month": [1, 7], "day_type": "weekday", "hour": 10, "base": [100.0, 700.0]})
     assert baseline_at(t, Timestamp("2025-10-01 10:00")) == (700.0, 7)
+
+
+def test_missing_day_type_hour_falls_back_to_sibling_day_type():
+    t = pd.DataFrame({"month": [1, 1], "day_type": ["sun_hol", "weekday"], "hour": [18, 18], "base": [800.0, 300.0]})
+    v, used = baseline_at(t, Timestamp("2025-01-11 18:00"))  # Saturday, no 'sat' cell
+    assert v == 800.0 and used is None
