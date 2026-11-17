@@ -8,3 +8,8 @@ def test_day_type():
     assert day_type(date(2025, 8, 3)) == "sun_hol"
     assert day_type(date(2025, 8, 15)) == "sun_hol"
     assert day_type(date(2025, 6, 4), "임시공휴일") == "sun_hol"
+
+
+def test_missing_holiday_value_is_not_a_holiday():
+    assert day_type(date(2025, 7, 30), float("nan")) == "weekday"
+    assert day_type(date(2025, 7, 30), "") == "weekday"

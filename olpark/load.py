@@ -24,8 +24,8 @@ def load_linked(path: str) -> pd.DataFrame:
     for c in ["temp", "wind", "rain", "humidity"]:
         df[c] = pd.to_numeric(df[c], errors="coerce")
     df["audience"] = pd.to_numeric(df["audience"], errors="coerce").fillna(0).astype(int)
-    df["holiday"] = df["holiday"].map(_none_if_blank)
-    df["show"] = df["show"].map(_none_if_blank)
+    df["holiday"] = pd.Series([_none_if_blank(v) for v in df["holiday"]], index=df.index, dtype=object)
+    df["show"] = pd.Series([_none_if_blank(v) for v in df["show"]], index=df.index, dtype=object)
     df["clean"] = df["dt"].dt.month.isin(CLEAN_MONTHS) & (df["dt"] < CUTOFF)
     return df.sort_values("dt").reset_index(drop=True)
 

@@ -56,3 +56,11 @@ def test_baseline_excludes_pre_show_hours_on_show_day():
     ])
     t = fit_baseline(df, [1])
     assert t.query("day_type=='weekday' and hour==17").base.item() == 100
+
+
+def test_baseline_from_loaded_csv_has_weekday_cells():
+    from pathlib import Path
+    from olpark.load import load_linked
+    df = load_linked(str(Path(__file__).parent / "fixtures" / "linked_small.csv"))
+    t = fit_baseline(df, [7, 10])
+    assert set(t.day_type) == {"weekday"}
