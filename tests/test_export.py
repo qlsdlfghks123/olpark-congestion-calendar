@@ -65,3 +65,10 @@ def test_build_writes_all_files(tmp_path):
                      "evidence_2025.json", "sources.json", "ics"}
     fc = json.loads((tmp_path / "forecast.json").read_text(encoding="utf-8"))
     assert fc["period"] == {"start": "2026-12-20", "end": "2027-01-31"} and len(fc["blocks"]) == 2 * 43
+
+
+def test_write_json_turns_nan_into_null(tmp_path):
+    from olpark.export import write_json
+    p = tmp_path / "x.json"
+    write_json(p, {"a": float("nan"), "b": [1.0, float("nan")], "c": pd.DataFrame({"v": [1, None]}).to_dict("records")})
+    assert json.loads(p.read_text(encoding="utf-8")) == {"a": None, "b": [1.0, None], "c": [{"v": 1.0}, {"v": None}]}

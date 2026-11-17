@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>올림픽공원 공연 혼잡 캘린더</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-page="citizen">
+<header class="top">
+  <h1>올림픽공원 공연 혼잡 캘린더</h1>
+  <p>공연이 있는 날, 내 수영장 강좌 시간에 주차장이 붐비는지 미리 확인하세요.</p>
+</header>
+<nav class="tabs"><a href="index.html" aria-current="page">수강생용 캘린더</a><a href="agency.html">기관용 겹침 목록</a><a href="evidence.html">근거와 검증</a></nav>
+<main>
+  <section class="card">
+    <h2>내 강좌 찾기</h2>
+    <label for="q" class="note">강좌명 일부를 입력하세요 (예: 19시 수영, 아쿠아로빅)</label><br>
+    <input id="q" type="search" autocomplete="off">
+    <ul id="results" class="results" aria-label="강좌 검색 결과"></ul>
+    <div id="mine" class="note"></div>
+  </section>
+  <section class="card">
+    <div class="calhead">
+      <button id="prev" type="button" aria-label="이전 달">이전 달</button>
+      <h2 id="month" aria-live="polite"></h2>
+      <button id="next" type="button" aria-label="다음 달">다음 달</button>
+    </div>
+    <div class="legend">
+      <span>공연 때문에 평소보다 붐빌 때만 색으로 표시합니다:</span><span><i class="sw lv-붐빔"></i>붐빔</span><span><i class="sw lv-매우"></i>매우 붐빔</span><span><i class="sw" style="border:2px solid var(--accent)"></i>내 강좌와 겹침</span>
+    </div>
+    <div id="cal" class="cal" role="grid"></div>
+  </section>
+  <section class="card" id="detail" aria-live="polite"><p class="note">날짜를 누르면 오후(12~16시)와 저녁(17~22시) 예보를 볼 수 있습니다.</p></section>
+  <section class="card note" id="about"></section>
+</main>
+<footer id="sources"></footer>
+<script src="app.js"></script>
+</body>
+</html>

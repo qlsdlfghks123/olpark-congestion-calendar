@@ -78,9 +78,19 @@ def load_courses(path: str) -> pd.DataFrame:
     return out
 
 
+MAX_CLASS_MINUTES = 180  # 이보다 길면 시간제 수업이 아니라 자유이용권(헬스 등)으로 본다
+
+
+def is_timed_class(start, end) -> bool:
+    minutes = (end.hour * 60 + end.minute) - (start.hour * 60 + start.minute)
+    return 0 < minutes <= MAX_CLASS_MINUTES
+
+
 def expand_sessions(courses: pd.DataFrame, start, end) -> pd.DataFrame:
     rows = []
     for c in courses.itertuples(index=False):
+        if not is_timed_class(c.start, c.end):
+            continue
         lo = max(start, c.period_start)
         if c.period_end is None:
             hi = end

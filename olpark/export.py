@@ -12,8 +12,10 @@ CURRENT_WINDOW_MONTHS = 4  # 파일의 마지막 개설월부터 4개월 이내�
 def current_timetable(courses: pd.DataFrame) -> pd.DataFrame:
     from olpark.load import latest_timetable
     lt = latest_timetable(courses)
+    from olpark.load import is_timed_class
     cutoff = courses["month"].max() - CURRENT_WINDOW_MONTHS
-    return lt[(lt["month"] >= cutoff) | lt["period_end"].isna()].reset_index(drop=True)
+    keep = ((lt["month"] >= cutoff) | lt["period_end"].isna()) & pd.Series([is_timed_class(s, e) for s, e in zip(lt["start"], lt["end"])], index=lt.index)
+    return lt[keep].reset_index(drop=True)
 
 
 def project_timetable(timetable: pd.DataFrame, start: date) -> pd.DataFrame:
@@ -65,5 +67,18 @@ def _default(o):
     raise TypeError(type(o))
 
 
+def _clean(o):
+    if isinstance(o, float) and o != o:  # NaN
+        return None
+    if isinstance(o, dict):
+        return {k: _clean(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_clean(v) for v in o]
+    if hasattr(o, "item") and not isinstance(o, (str, bytes)):
+        return _clean(o.item())
+    return o
+
+
 def write_json(path: Path, obj) -> None:
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=1, default=_default), encoding="utf-8")
+    text = json.dumps(_clean(obj), ensure_ascii=False, indent=1, default=_default, allow_nan=False)
+    path.write_text(text, encoding="utf-8")

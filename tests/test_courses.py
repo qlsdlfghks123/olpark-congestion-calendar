@@ -67,3 +67,15 @@ def test_public_holidays_have_no_sessions():
     days = set(expand_sessions(c, date(2025, 10, 1), date(2025, 10, 10)).date)
     assert date(2025, 10, 3) not in days and date(2025, 10, 9) not in days   # 개천절, 한글날
     assert date(2025, 10, 2) in days and date(2025, 10, 10) in days
+
+
+def test_all_day_passes_and_broken_times_make_no_sessions():
+    base = {"sub_no": "1", "capacity": 800, "days": [0, 1, 2, 3, 4, 5, 6], "optional_days": [], "group": "", "fee": 0,
+            "month": pd.Period("2025-10", "M"), "period_start": date(2025, 10, 1), "period_end": date(2025, 10, 31)}
+    c = pd.DataFrame([
+        {**base, "course_no": "pass", "name": "헬스 (월~일)", "start": pd.Timestamp("06:00").time(), "end": pd.Timestamp("21:50").time()},
+        {**base, "course_no": "wrap", "name": "11시 서킷핏", "start": pd.Timestamp("11:00").time(), "end": pd.Timestamp("10:50").time()},
+        {**base, "course_no": "ok", "name": "수영", "start": pd.Timestamp("19:00").time(), "end": pd.Timestamp("19:50").time()},
+    ])
+    s = expand_sessions(c, date(2025, 10, 13), date(2025, 10, 13))
+    assert set(s.course_no) == {"ok"}

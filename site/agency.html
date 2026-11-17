@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기관용 강좌 겹침 목록 | 올림픽공원 공연 혼잡 캘린더</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-page="agency">
+<header class="top">
+  <h1>기관용 강좌 겹침 목록</h1>
+  <p>공연 혼잡이 예상되는 구간과 겹치는 수영장 강좌 회차입니다. 해당 반에만 안내를 보낼 때 쓰세요.</p>
+</header>
+<nav class="tabs"><a href="index.html">수강생용 캘린더</a><a href="agency.html" aria-current="page">기관용 겹침 목록</a><a href="evidence.html">근거와 검증</a></nav>
+<main>
+  <section class="card">
+    <h2>기간 선택</h2>
+    <label class="note" for="from">시작일</label> <input id="from" type="date">
+    <label class="note" for="to">종료일</label> <input id="to" type="date">
+    <p><label class="note"><input id="regular" type="checkbox"> 토요일 선택 수업 제외</label></p>
+    <div class="kpis" id="kpis"></div>
+    <p><a class="btn" href="data/agency_overlaps.csv" download>전체 목록 CSV 내려받기</a></p>
+  </section>
+  <section class="card">
+    <h2>겹치는 강좌 회차</h2>
+    <div class="tablewrap"><table id="tbl"><thead><tr><th>날짜</th><th>시간</th><th>강좌</th><th class="num">정원</th><th>구간</th><th>수준</th><th class="num">평소 대비</th><th>공연</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  <section class="card">
+    <h2>운영 방법</h2>
+    <ol class="note">
+      <li>대관이 확정되면 저장소 data 폴더의 <code>schedule.csv</code>에 날짜, 시작 시각, 공연장, 공연명, 예상 관객 수를 한 줄씩 추가합니다.</li>
+      <li>파일을 저장하면 자동으로 예보와 겹침 목록이 다시 계산되어 이 화면과 CSV에 반영됩니다.</li>
+      <li>CSV의 강좌번호로 회원 관리 시스템에서 해당 반을 찾아 기존 문자·공지 채널로 안내합니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</li>
+    </ol>
+  </section>
+</main>
+<footer id="sources"></footer>
+<script src="app.js"></script>
+</body>
+</html>
