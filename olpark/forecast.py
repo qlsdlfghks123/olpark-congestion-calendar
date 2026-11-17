@@ -25,7 +25,7 @@ def forecast(schedule: pd.DataFrame, start: date, end: date, table: pd.DataFrame
     rows = []
     for ts in pd.date_range(pd.Timestamp(start), pd.Timestamp(end) + pd.Timedelta(hours=23), freq="h"):
         base, fb = baseline_at(table, ts)
-        excess, titles, assumed = 0.0, [], False
+        contrib, assumed = [], False
         events = by_date.get(ts.date())
         if events is not None:
             wk = wk_of(ts.date())
@@ -33,12 +33,15 @@ def forecast(schedule: pd.DataFrame, start: date, end: date, table: pd.DataFrame
                 off = ts.hour - int(e.start_hour)
                 if off not in OFFSETS:
                     continue
-                titles.append(e.title)
                 assumed = assumed or bool(e.start_time_assumed)
                 a = analog_for(analog, e.size, wk, off)
-                if a is not None and not pd.isna(base):
-                    excess += max(0.0, a - base)
+                exc = max(0.0, a - base) if a is not None and not pd.isna(base) else 0.0
+                contrib.append((exc, e.title))
+        # 여러 공연이 겹쳐도 2025년 실측 최고값은 단독 공연일과 비슷했다 → 가장 큰 공연의 효과만 쓴다
+        excess = max((c for c, _ in contrib), default=0.0)
+        titles = list(dict.fromkeys(t for _, t in sorted(contrib, key=lambda c: -c[0])))
         rows.append({"dt": ts, "base": base, "pred": base + excess, "titles": titles,
+                     "title_effect": {t: max(c for c, t2 in contrib if t2 == t) for _, t in contrib},
                      "assumed_start": assumed, "baseline_month_fallback": fb})
     return pd.DataFrame(rows)
 
@@ -55,6 +58,12 @@ def to_blocks(hourly: pd.DataFrame, th: dict, value_col: str = "pred") -> pd.Dat
                 continue
             pmax, bmax = float(b[value_col].max()), float(b["base"].max())
             titles = list(dict.fromkeys(t for ts in b["titles"] for t in ts))
+            if "title_effect" in b.columns:
+                eff = {}
+                for d_ in b["title_effect"]:
+                    for t, c in d_.items():
+                        eff[t] = max(eff.get(t, 0.0), c)
+                titles.sort(key=lambda t: -eff.get(t, 0.0))
             lvl = level_of(pmax, th)
             fb = b["baseline_month_fallback"].dropna()
             rows.append({"date": d, "block": name, "pred_max": pmax, "base_max": bmax, "level": lvl,

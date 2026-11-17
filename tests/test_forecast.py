@@ -19,11 +19,14 @@ def test_no_show_equals_baseline():
     assert len(f) == 24 and (f.pred == 1000).all()
 
 
-def test_two_shows_same_hour_add_excess():
-    s = _sched([(D, 19, "L", "A", "KSPO DOME"), (D, 19, "L", "B", "올림픽홀")])
-    f = forecast(s, D, D, TABLE, ANALOG, TH).set_index("dt")
-    assert f.loc[pd.Timestamp("2027-01-13 19:00"), "pred"] == 1000 + 600 + 600
-    assert f.loc[pd.Timestamp("2027-01-13 20:00"), "titles"] == ["A", "B"]
+def test_two_shows_same_hour_use_largest_not_sum():
+    # 2025 data: days with 2-3 shows peak only slightly above single-show days, so excesses are not added
+    s = _sched([(D, 19, "S", "작은공연", "올림픽홀"), (D, 19, "L", "큰공연", "KSPO DOME")])
+    small = ANALOG.copy()
+    small = pd.concat([small, pd.DataFrame({"size": ["S"], "wk": ["wd"], "offset": [0], "park": [1200.0], "n": [5]})])
+    f = forecast(s, D, D, TABLE, small, TH).set_index("dt")
+    assert f.loc[pd.Timestamp("2027-01-13 19:00"), "pred"] == 1600
+    assert f.loc[pd.Timestamp("2027-01-13 19:00"), "titles"] == ["큰공연", "작은공연"]   # largest effect first
 
 
 def test_analog_below_base_does_not_lower_prediction():
@@ -65,3 +68,10 @@ def test_show_congestion_rule():
     assert is_show_congestion("붐빔", 300, 1000) is True
     assert is_show_congestion("붐빔", 200, 1000) is False
     assert is_show_congestion("보통", 900, 100) is False
+
+
+def test_block_titles_ordered_by_effect():
+    small = pd.concat([ANALOG, pd.DataFrame({"size": ["S"], "wk": ["wd"], "offset": [0], "park": [1200.0], "n": [5]})])
+    s = _sched([(D, 18, "S", "작은공연", "올림픽홀"), (D, 19, "L", "큰공연", "KSPO DOME")])
+    b = to_blocks(forecast(s, D, D, TABLE, small, TH), TH).set_index("block")
+    assert b.loc["저녁"].titles == ["큰공연", "작은공연"]
