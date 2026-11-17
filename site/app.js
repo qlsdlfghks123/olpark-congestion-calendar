@@ -114,7 +114,7 @@
       var flagged = fc.blocks.filter(function (b) { return b.show_congestion; })
         .sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.block === "오후" ? -1 : 1); });
 
-      var state = { month: 0, selected: null, course: null, mine: {}, lanes: [], upAll: false };
+      var state = { month: 0, selected: null, course: null, mine: {}, lanes: [], upAll: false }, stampUntil = 0;
 
       /* 내 강좌가 걸치는 구간 */
       function lanesOf(c) {
@@ -185,6 +185,8 @@
         drawStand(cur);
         Array.prototype.forEach.call(monthsBox.children, function (b, i) { b.setAttribute("aria-pressed", String(i === state.month)); });
         var cal = $("cal"); cal.innerHTML = "";
+        /* 강좌를 고른 순간에만: 수업 눈금이 날짜순으로 찍힌다 */
+        cal.classList.toggle("stamp", Date.now() < stampUntil);
         DOW.forEach(function (d, i) {
           var h = el("div", "dow" + (i === 6 ? " sun" : ""), d); h.setAttribute("aria-hidden", "true"); cal.appendChild(h);
         });
@@ -200,6 +202,7 @@
         var key = ymd(date), bl = byDate[key];
         var b = el("button", "day");
         b.type = "button";
+        b.style.setProperty("--i", String(date.getDate()));
         if (dowIdx(date) === 6) b.classList.add("sun");
         if (hol[key]) b.classList.add("hol");
         if (key === today) b.classList.add("today");
@@ -223,7 +226,10 @@
           b.appendChild(t);
         }
         var mine = state.mine[key];
-        if (mine) { var me = el("span", "me"); me.appendChild(el("span", "lbl", "내 수업 ")); me.appendChild(txt(hm(mine.start_dt))); b.appendChild(me); }
+        if (mine) {
+          var me = el("span", "me"), sw = el("i", "sw tick" + (mine.optional ? " opt" : ""));
+          me.appendChild(sw); me.appendChild(el("span", "lbl", "내 수업 ")); me.appendChild(txt(hm(mine.start_dt))); b.appendChild(me);
+        }
         b.appendChild(strip(bl, tickOf(key)));
         if (state.selected === key) { b.classList.add("sel"); b.setAttribute("aria-pressed", "true"); } else b.setAttribute("aria-pressed", "false");
         b.setAttribute("aria-label", longDate(key) + (hol[key] ? " " + hol[key] : "") + ", " + (said.length ? said.join(", ") : "공연 혼잡 없음") +
@@ -431,6 +437,7 @@
 
       function pick(c, how) {
         state.course = c; state.lanes = lanesOf(c); state.mine = {};
+        if (how === "user") stampUntil = Date.now() + 1000;
         overlaps.forEach(function (o) { if (o.course_no === c.course_no && !state.mine[o.date]) state.mine[o.date] = o; });
         q.value = c.name; clear.hidden = false; closeList();
         store("olpark.course", c.course_no);
@@ -450,7 +457,7 @@
 
       function drawMine() {
         var c = state.course, box = $("mine"); box.innerHTML = ""; box.hidden = false; $("mine-hint").hidden = true; $("other").hidden = false;
-        box.appendChild(el("h3", "sr", c.name));
+        box.appendChild(el("h3", "mine-title", c.name));
         var meta = el("div", "cmeta");
         meta.appendChild(el("p", null, dayText(c) + ", " + c.start + "~" + c.end));
         meta.appendChild(el("p", null, c.group + ", 정원 " + c.capacity + "명, 강좌번호 " + c.course_no));
@@ -553,10 +560,10 @@
           var tr = el("tr");
           var tm = el("td", "time", hm(o.start_dt) + "~"); tm.appendChild(el("wbr")); tm.appendChild(txt(hm(o.end_dt))); tr.appendChild(tm);
           var nm = el("td", null, o.name);
-          if (o.optional) { nm.appendChild(txt(" ")); nm.appendChild(el("span", "tag m-only", "토요일 선택")); }
+          if (o.optional) nm.appendChild(el("span", "optnote m-only", "토요일 선택 수업"));
           tr.appendChild(nm);
           tr.appendChild(el("td", "num", num(o.capacity) + "명"));
-          var nt = el("td"); if (o.optional) nt.appendChild(el("span", "tag", "토요일 선택")); tr.appendChild(nt);
+          var nt = el("td"); if (o.optional) nt.appendChild(el("span", "optnote", "토요일 선택 수업")); tr.appendChild(nt);
           tb.appendChild(tr);
         });
         var cap = rs.reduce(function (s, o) { return s + o.capacity; }, 0), cs = {};
