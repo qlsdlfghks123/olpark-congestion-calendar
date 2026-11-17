@@ -4,27 +4,73 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>근거와 검증 | 올림픽공원 공연 혼잡 캘린더</title>
-<link rel="icon" href="data:,">
+<meta name="description" content="2025년 실제 주차 기록으로 확인한 공연 혼잡과 강좌의 겹침, 그리고 예보 검증 결과입니다.">
+<meta name="theme-color" content="#0f172a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/pretendard.css">
 <link rel="stylesheet" href="app.css">
 </head>
 <body data-page="evidence">
-<header class="top">
-  <h1>근거와 검증</h1>
-  <p>2025년 실제 데이터로 확인한 공연 혼잡과 강좌의 겹침, 그리고 예보가 얼마나 맞았는지입니다.</p>
+<header class="shell">
+  <div class="shell-in">
+    <a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="3.75" width="18.5" height="16.5" rx="2" fill="none" stroke="#cbd5e1" stroke-width="1.5"/><path d="M6.5 9.75h11" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><path d="M6.5 14.25h4.5" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/><path d="M13.5 14.25h4" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg>올림픽공원 공연 혼잡 캘린더</a>
+    <nav class="nav" aria-label="화면 이동"><a href="index.html">수강생 캘린더</a><a href="agency.html">기관 겹침 목록</a><a href="evidence.html" aria-current="page">근거와 검증</a></nav>
+  </div>
 </header>
-<nav class="tabs"><a href="index.html">수강생용 캘린더</a><a href="agency.html">기관용 겹침 목록</a><a href="evidence.html" aria-current="page">근거와 검증</a></nav>
-<main>
-  <section class="card"><h2>2025년에 실제로 겹친 강좌</h2><div class="kpis" id="ev-kpis"></div><p class="note" id="ev-note"></p></section>
-  <section class="card"><h2>월별 겹친 강좌 회차</h2><div id="ev-month"></div></section>
-  <section class="card"><h2>겹친 회차가 많았던 공연</h2><div class="tablewrap"><table id="ev-top"><thead><tr><th>공연</th><th>날짜</th><th class="num">겹친 회차</th></tr></thead><tbody></tbody></table></div></section>
-  <section class="card"><h2>예보 검증 (2025년 정상 8개월, 한 달씩 번갈아 시험)</h2>
-    <p class="note">각 달을 시험 달로 빼고 나머지 7개월로 학습해, 그 달의 오후·저녁이 '붐빔' 이상이었는지를 미리 맞혔는지 셌습니다. '평소 패턴'은 공연을 무시하고 요일·시간대 평균만 쓴 방법입니다.</p>
-    <div class="tablewrap"><table id="loo"><thead><tr><th>구간</th><th>방법</th><th class="num">맞힌 비율</th><th class="num">붐빈 날 잡아낸 비율</th><th class="num">공연일 붐빔 잡아낸 비율</th><th class="num">경보 중 실제 붐빔</th><th class="num">최고값 평균 오차</th></tr></thead><tbody></tbody></table></div>
-    <p class="note" id="flag"></p>
-  </section>
-  <section class="card"><h2>한계</h2><ul class="note" id="limits"></ul></section>
+
+<main class="wrap">
+  <div class="pagehead">
+    <div>
+      <h1>근거와 검증</h1>
+      <p>2025년 실제 주차 기록으로 확인한 공연 혼잡과 강좌의 겹침, 그리고 예보가 얼마나 맞았는지입니다.</p>
+    </div>
+  </div>
+
+  <div class="ev-grid stack">
+    <section class="panel" aria-labelledby="h-ev">
+      <h2 id="h-ev">2025년에 실제로 겹친 수업</h2>
+      <p class="lead" id="ev-lead"><span class="loading">불러오는 중입니다.</span></p>
+      <div class="chart" id="ev-month">
+        <p class="chart-title">월별 겹친 수업 회차</p>
+        <p class="chart-sub">2025년 정상 기간, 공연 혼잡 구간과 겹친 수업 수</p>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-top">
+      <h2 id="h-top">겹친 수업이 많았던 공연</h2>
+      <div class="tablewrap">
+        <table id="ev-top"><thead><tr><th scope="col">공연</th><th scope="col">날짜</th><th scope="col" class="num">겹친 수업</th></tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <section class="panel full" aria-labelledby="h-loo">
+      <h2 id="h-loo">예보는 얼마나 맞았나</h2>
+      <p class="lead">2025년 정상 8개월을 한 달씩 시험 달로 빼고, 나머지 7개월로 배운 예보가 그 달 오후와 저녁의 붐빔을 미리 맞혔는지 셌습니다. 비교 대상인 평소 패턴은 공연을 무시하고 요일과 시간대 평균만 쓴 방법입니다.</p>
+      <div class="chart" id="loo-chart">
+        <div class="key"><span><i class="ours" aria-hidden="true"></i>과거 비슷한 공연일 참고 (이 서비스)</span><span><i class="base" aria-hidden="true"></i>평소 패턴만</span></div>
+      </div>
+      <details class="tbl">
+        <summary>모든 검증 수치를 표로 보기</summary>
+        <div class="tablewrap">
+          <table id="loo"><thead><tr><th scope="col">구간</th><th scope="col">방법</th><th scope="col" class="num">맞힌 비율</th><th scope="col" class="num">붐빈 날 잡아낸 비율</th><th scope="col" class="num">공연일 붐빔 잡아낸 비율</th><th scope="col" class="num">경보 중 실제 붐빔</th><th scope="col" class="num">최고값 평균 오차</th></tr></thead><tbody></tbody></table>
+        </div>
+      </details>
+      <p class="lead gap-top" id="flag"></p>
+    </section>
+
+    <section class="panel full" aria-labelledby="h-lim">
+      <h2 id="h-lim">한계</h2>
+      <ul class="limits" id="limits"></ul>
+    </section>
+  </div>
 </main>
-<footer id="sources"></footer>
+
+<footer class="foot" id="sources">
+  <div class="wrap">
+    <div><h2>데이터 출처</h2><ul id="src-list"></ul></div>
+    <div><h2>알아 두실 점</h2><p id="src-def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
+  </div>
+</footer>
 <script src="app.js"></script>
 </body>
 </html>

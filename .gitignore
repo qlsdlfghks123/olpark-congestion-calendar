@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 site/data/
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/questions/
