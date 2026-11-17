@@ -1,0 +1,49 @@
+name: 예보 계산과 배포
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 21 * * *" # 매일 06:17 (한국 시간), 예보 시작일을 하루씩 옮긴다
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+      - name: 테스트 (실패하면 배포하지 않음)
+        run: python -m pytest -q
+      - name: 예보, 겹침 목록, 근거 데이터 계산
+        env:
+          TZ: Asia/Seoul
+        run: python -m olpark.build --out site/data
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
