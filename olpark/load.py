@@ -28,3 +28,79 @@ def load_linked(path: str) -> pd.DataFrame:
     df["show"] = df["show"].map(_none_if_blank)
     df["clean"] = df["dt"].dt.month.isin(CLEAN_MONTHS) & (df["dt"] < CUTOFF)
     return df.sort_values("dt").reset_index(drop=True)
+
+
+# ---------- 강좌정보 ----------
+_DAY = {"월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6}
+
+
+def parse_days(text: str) -> tuple[list[int], list[int]]:
+    """'월,수,금,(토)' -> ([0,2,4],[5]). 괄호로 감싼 요일은 선택 수업, '금(방)'처럼 뒤에 붙은 괄호 표기는 무시."""
+    days, optional = [], []
+    for tok in str(text).split(","):
+        tok = tok.strip()
+        if not tok:
+            continue
+        if tok.startswith("(") and len(tok) >= 2 and tok[1] in _DAY:
+            optional.append(_DAY[tok[1]])
+        elif tok[0] in _DAY:
+            days.append(_DAY[tok[0]])
+    return sorted(set(days)), sorted(set(optional) - set(days))
+
+
+def _parse_time(s: str):
+    return pd.to_datetime(s.strip(), format="%H:%M").time()
+
+
+def load_courses(path: str) -> pd.DataFrame:
+    raw = pd.read_csv(path, encoding="cp949", dtype=str).fillna("")
+    out = pd.DataFrame()
+    out["course_no"] = raw["강좌번호"].str.strip()
+    out["sub_no"] = raw["강좌서브번호"].str.strip()
+    out["month"] = pd.to_datetime(raw["시작월"]).dt.to_period("M")
+    out["name"] = raw["강좌명"].str.strip().str.replace(r"\s+", " ", regex=True)
+    se = raw["시작종료시간"].str.split("~", expand=True)
+    out["start"] = se[0].map(_parse_time)
+    out["end"] = se[1].map(_parse_time)
+    out["capacity"] = pd.to_numeric(raw["정원"], errors="coerce").fillna(0).astype(int)
+    parsed = raw["요일"].map(parse_days)
+    out["days"] = parsed.map(lambda p: p[0])
+    out["optional_days"] = parsed.map(lambda p: p[1])
+    out["group"] = raw["강습반"].str.strip()
+    out["fee"] = pd.to_numeric(raw["강좌금액"], errors="coerce").fillna(0).astype(int)
+    per = raw["시작일자"].str.split("~", expand=True)
+    out["period_start"] = pd.to_datetime(per[0]).dt.date
+    end = per[1].str.strip()
+    out["period_end"] = [None if e.startswith("9999") else pd.to_datetime(e).date() for e in end]
+    return out
+
+
+def expand_sessions(courses: pd.DataFrame, start, end) -> pd.DataFrame:
+    rows = []
+    for c in courses.itertuples(index=False):
+        lo = max(start, c.period_start)
+        if c.period_end is None:
+            hi = end
+        else:
+            month_end = (c.month.to_timestamp(how="end")).date()
+            hi = min(end, c.period_end, month_end)
+            lo = max(lo, c.month.to_timestamp().date())
+        if lo > hi:
+            continue
+        for d in pd.date_range(lo, hi, freq="D"):
+            wd = d.dayofweek
+            if wd in c.days or wd in c.optional_days:
+                rows.append({
+                    "course_no": c.course_no, "name": c.name, "date": d.date(),
+                    "start_dt": pd.Timestamp.combine(d.date(), c.start),
+                    "end_dt": pd.Timestamp.combine(d.date(), c.end),
+                    "capacity": c.capacity, "optional": wd in c.optional_days,
+                })
+    cols = ["course_no", "name", "date", "start_dt", "end_dt", "capacity", "optional"]
+    return (pd.DataFrame(rows, columns=cols)
+            .drop_duplicates(["course_no", "start_dt"]).reset_index(drop=True))
+
+
+def latest_timetable(courses: pd.DataFrame) -> pd.DataFrame:
+    return (courses.sort_values(["course_no", "month", "sub_no"])
+            .groupby("course_no", as_index=False).tail(1).reset_index(drop=True))
