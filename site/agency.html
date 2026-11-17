@@ -5,32 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>기관 겹침 목록 | 올림픽공원 공연 혼잡 캘린더</title>
 <meta name="description" content="공연 혼잡이 예상되는 시간과 겹치는 올림픽수영장 강좌 회차 목록입니다.">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#111d32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts/pretendard.css">
 <link rel="stylesheet" href="app.css">
 </head>
 <body data-page="agency">
+<a class="skip" href="#main">본문 바로가기</a>
 <header class="shell">
   <div class="shell-in">
-    <a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="3.75" width="18.5" height="16.5" rx="2" fill="none" stroke="#cbd5e1" stroke-width="1.5"/><path d="M6.5 9.75h11" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/><path d="M6.5 14.25h4.5" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/><path d="M13.5 14.25h4" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg>올림픽공원 공연 혼잡 캘린더</a>
+    <a class="brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="17" rx="3.5" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M7.25 9h3.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="6.5" y="13.75" width="4.75" height="3" rx=".8" fill="#aeb9cb"/><rect x="12.5" y="13.75" width="5" height="3" rx=".8" fill="#e87329"/></svg>올림픽공원 공연 혼잡 캘린더</a>
     <nav class="nav" aria-label="화면 이동"><a href="index.html">수강생 캘린더</a><a href="agency.html" aria-current="page">기관 겹침 목록</a><a href="evidence.html">근거와 검증</a></nav>
+    <p class="shell-meta" id="period"></p>
   </div>
 </header>
 
-<main class="wrap">
+<main class="page" id="main">
   <div class="pagehead">
     <div>
       <h1>기관 겹침 목록</h1>
-      <p>공연 혼잡이 예상되는 시간과 겹치는 수영장 강좌 회차입니다. 해당 반에만 주차 안내를 보낼 때 쓰세요.</p>
+      <p class="lede">공연 혼잡이 예상되는 시간과 겹치는 수영장 강좌 회차입니다. 해당 반에만 주차 안내를 보낼 때 쓰세요.</p>
     </div>
-    <p class="meta" id="period"></p>
   </div>
 
-  <div class="stack">
-    <section class="panel" aria-labelledby="h-filter">
+  <div class="sheet">
+    <section aria-labelledby="h-filter">
       <h2 id="h-filter" class="sr">조건</h2>
-      <div class="filters">
+      <div class="toolbar">
         <div class="field">
           <span class="label" id="l-range">기간</span>
           <div class="range" role="group" aria-labelledby="l-range">
@@ -46,9 +47,9 @@
       <p class="summary" id="summary" aria-live="polite"></p>
     </section>
 
-    <section class="panel" aria-labelledby="h-tbl">
-      <div class="panel-head"><h2 id="h-tbl">겹치는 강좌 회차</h2><span class="hint">날짜와 구간마다 한 묶음으로 보여 줍니다.</span></div>
-      <div class="tablewrap">
+    <section aria-labelledby="h-tbl">
+      <div class="tablehead"><h2 id="h-tbl">겹치는 강좌 회차</h2><span class="hint">날짜와 구간마다 한 묶음으로 보여 줍니다. 막대는 그날의 오후와 저녁입니다.</span></div>
+      <div class="tablewrap ov-wrap">
         <table class="ov-table" id="tbl">
           <colgroup><col class="c-time"><col><col class="c-cap"><col class="c-note"></colgroup>
           <thead><tr><th scope="col">수업 시간</th><th scope="col">강좌</th><th scope="col" class="num">정원</th><th scope="col">비고</th></tr></thead>
@@ -57,23 +58,24 @@
       </div>
       <div class="tablefoot"><span class="hint" id="shown"></span><button class="btn" id="more" type="button" hidden>50회 더 보기</button></div>
     </section>
-
-    <section class="panel" aria-labelledby="h-how">
-      <h2 id="h-how">운영 방법</h2>
-      <ol class="steps">
-        <li>대관이 확정되면 저장소 data 폴더의 <code>schedule.csv</code>에 날짜, 시작 시각, 공연장, 공연명, 예상 관객 수를 한 줄씩 추가합니다.</li>
-        <li>파일을 저장하면 예보와 겹침 목록이 자동으로 다시 계산되어 이 화면과 CSV에 반영됩니다.</li>
-        <li>CSV의 강좌번호로 회원 관리 시스템에서 해당 반을 찾아 기존 문자나 공지 채널로 안내합니다. 수강생용 화면 주소 뒤에 <code>?course=강좌번호</code>를 붙이면 그 강좌가 선택된 달력으로 바로 열립니다.</li>
-      </ol>
-    </section>
   </div>
+
+  <section class="howto" aria-labelledby="h-how">
+    <div>
+      <h2 id="h-how">운영 방법</h2>
+      <p class="sub">대관 일정이 바뀔 때마다 이 순서로 반영합니다.</p>
+    </div>
+    <ol class="steps">
+      <li><span>대관이 확정되면 저장소 data 폴더의 <code>schedule.csv</code>에 날짜, 시작 시각, 공연장, 공연명, 예상 관객 수를 한 줄씩 추가합니다.</span></li>
+      <li><span>파일을 저장하면 예보와 겹침 목록이 자동으로 다시 계산되어 이 화면과 CSV에 반영됩니다.</span></li>
+      <li><span>CSV의 강좌번호로 회원 관리 시스템에서 해당 반을 찾아 기존 문자나 공지 채널로 안내합니다. 수강생용 화면 주소 뒤에 <code>?course=강좌번호</code>를 붙이면 그 강좌가 선택된 달력으로 바로 열립니다.</span></li>
+    </ol>
+  </section>
 </main>
 
 <footer class="foot" id="sources">
-  <div class="wrap">
-    <div><h2>데이터 출처</h2><ul id="src-list"></ul></div>
-    <div><h2>알아 두실 점</h2><p id="src-def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
-  </div>
+  <div><h2>데이터 출처</h2><ul id="src-list"></ul></div>
+  <div><h2>알아 두실 점</h2><p id="src-def"></p><p>공공데이터 활용 경진대회 출품용 시제품입니다. 예보는 실제와 다를 수 있습니다. 이 서비스는 개인정보를 받거나 저장하지 않습니다.</p></div>
 </footer>
 <script src="app.js"></script>
 </body>

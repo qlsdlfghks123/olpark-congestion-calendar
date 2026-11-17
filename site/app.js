@@ -541,7 +541,8 @@
             th.colSpan = 4; th.scope = "colgroup";
             var top = el("div", "g1");
             top.appendChild(el("strong", null, mdw(o.date)));
-            top.appendChild(strip(byDate[o.date]));
+            var only = {}; only[o.block] = (byDate[o.date] || {})[o.block];
+            top.appendChild(strip(only));
             top.appendChild(el("span", "blk", BLOCK_LABEL[o.block] || o.block));
             top.appendChild(chip(o.level));
             top.appendChild(el("span", "ex", "평소보다 약 " + about(o.excess) + "대 많음"));
@@ -550,7 +551,7 @@
             gr.appendChild(th); tb.appendChild(gr); table.appendChild(tb);
           }
           var tr = el("tr");
-          tr.appendChild(el("td", "time", hm(o.start_dt) + "~" + hm(o.end_dt)));
+          var tm = el("td", "time", hm(o.start_dt) + "~"); tm.appendChild(el("wbr")); tm.appendChild(txt(hm(o.end_dt))); tr.appendChild(tm);
           var nm = el("td", null, o.name);
           if (o.optional) { nm.appendChild(txt(" ")); nm.appendChild(el("span", "tag m-only", "토요일 선택")); }
           tr.appendChild(nm);
