@@ -2,6 +2,7 @@
 import pandas as pd
 
 from olpark.calendar_kr import day_type
+from olpark.events import show_window_mask
 
 LEVELS = ("보통", "붐빔", "매우 붐빔")
 
@@ -16,7 +17,7 @@ def _with_keys(df: pd.DataFrame) -> pd.DataFrame:
 
 def fit_baseline(df: pd.DataFrame, months: list[int]) -> pd.DataFrame:
     d = _with_keys(df)
-    d = d[d["clean"] & d["month"].isin(months) & d["show"].isna()]
+    d = d[d["clean"] & d["month"].isin(months) & ~show_window_mask(df).values]
     return (d.groupby(["month", "day_type", "hour"])["parking"].median()
             .rename("base").reset_index())
 
